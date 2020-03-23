@@ -32,8 +32,11 @@
             <v-btn
               color="primary"
               @click="onSubmit"
-              :disabled="!valid"
-            >Login</v-btn>
+              :loading="loading"
+              :disabled="!valid || loading"
+            >
+              Login
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -42,35 +45,52 @@
 </template>
 
 <script>
-  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
   export default {
-    data () {
+    data() {
       return {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
         valid: false,
         emailRules: [
-          v => !!v || 'E-mail is required',
-          v => emailRegex.test(v) || 'E-mail must be valid'
+          v => !!v || "E-mail is required",
+          v => emailRegex.test(v) || "E-mail must be valid"
         ],
         passwordRules: [
-          v => !!v || 'Password is required',
-          v => (v && v.length >= 6) || 'Password must be equal or more than 6 characters'
+          v => !!v || "Password is required",
+          v =>
+            (v && v.length >= 6) ||
+            "Password must be equal or more than 6 characters"
         ]
+      };
+    },
+    computed: {
+      loading () {
+        return this.$store.getters.loading
       }
     },
     methods: {
-      onSubmit () {
+      onSubmit() {
         if (this.$refs.form.validate()) {
           const user = {
             email: this.email,
             password: this.password
-          }
+          };
 
-          console.log(user)
+          this.$store
+            .dispatch("loginUser", user)
+            .then(() => {
+              this.$router.push("/");
+            })
+            .catch(() => {});
         }
       }
+    },
+    created() {
+      if (this.$route.query["loginError"]) {
+        this.$store.dispatch("setError", "Please log in to access this page.");
+      }
     }
-  }
+  };
 </script>

@@ -31,7 +31,7 @@
         </v-layout>
         <v-layout row>
           <v-flex xs12>
-            <img src="" height="100">
+            <img src="" height="100" />
           </v-flex>
         </v-layout>
         <v-layout row>
@@ -47,7 +47,8 @@
           <v-flex xs12>
             <v-spacer></v-spacer>
             <v-btn
-              :disabled="!valid"
+              :loading="loading"
+              :disabled="!valid || loading"
               class="success"
               @click="createAd"
             >
@@ -62,27 +63,38 @@
 
 <script>
   export default {
-    data () {
+    data() {
       return {
-        title: '',
-        description: '',
+        title: "",
+        description: "",
         promo: false,
         valid: false
+      };
+    },
+    computed: {
+      loading() {
+        return this.$store.getters.loading;
       }
     },
     methods: {
-      createAd () {
+      createAd() {
         if (this.$refs.form.validate()) {
-          // logic
+
           const ad = {
             title: this.title,
             description: this.description,
-            promo: this.promo
-          }
+            promo: this.promo,
+            imageSrc:
+              "https://hookahcenter.ru/components/com_jshopping/files/img_products/__________________BOER_black.jpg"
+          };
 
-          console.log(ad)
+          this.$store.dispatch("createAd", ad)
+            .then(() => {
+              this.$router.push("/list");
+            })
+            .catch(() => {});
         }
       }
     }
-  }
+  };
 </script>
