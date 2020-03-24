@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     <v-container fluid>
       <v-layout row>
         <v-flex xs12>
@@ -32,6 +32,7 @@
               height="200px"
             >
             </v-img>
+            
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">{{ad.title}}</h3>
@@ -40,10 +41,24 @@
             </v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn :to="'/ad/' + ad.id">Open</v-btn>
-              <v-btn raised class="primary">Buy</v-btn>
+              <v-btn :to="'/ad/' + ad.id" class="mr-3">Open</v-btn>
+              <app-buy-modal :ad="ad"></app-buy-modal>
             </v-card-actions>
           </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
+  <div v-else>
+    <v-container>
+      <v-layout row>
+        <v-flex xs12 class="text-xs-center pt-5">
+          <v-progress-circular
+            indeterminate
+            :size="100"
+            :width="4"
+            color="purple"
+          ></v-progress-circular>
         </v-flex>
       </v-layout>
     </v-container>
@@ -58,6 +73,9 @@ export default {
     },
     ads() {
       return this.$store.getters.ads
+    },
+    loading () {
+      return this.$store.getters.loading
     }
  } 
 }

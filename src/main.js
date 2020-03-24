@@ -2,9 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import BuyModalComponent from '@/components/Shared/BuyModal'
 import vuetify from './plugins/vuetify'
 import *as fb from 'firebase'
+import 'vuetify/dist/vuetify.min.css'
 
+Vue.component('app-buy-modal', BuyModalComponent)
 Vue.config.productionTip = false
 
 new Vue({
@@ -28,6 +31,9 @@ new Vue({
         this.$store.dispatch('autoLoginUser', user)
       }
     })
+
+    this.$store.dispatch('fetchAds')
+
   },
   render: h => h(App)
 }).$mount('#app')
