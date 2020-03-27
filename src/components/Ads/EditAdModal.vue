@@ -1,7 +1,7 @@
 <template>
   <v-dialog width="400px" v-model="modal">
     <template v-slot:activator="{ on }">
-      <v-btn class="warning" v-on="on">Edit</v-btn>
+      <v-btn class="warning mr-3" v-on="on">Edit</v-btn>
     </template>
     <v-card>
       <v-container>
@@ -23,6 +23,12 @@
                 type="text"
                 multi-line
                 v-model="editedDescription"
+              ></v-text-field>
+              <v-text-field
+                name="price"
+                label="Цена"
+                type="number"
+                v-model="editedPrice"
               ></v-text-field>
             </v-card-text>
           </v-flex>
@@ -49,20 +55,23 @@ export default {
     return {
       modal: false,
       editedDescription: this.ad.description,
-      editedTitle: this.ad.title
+      editedTitle: this.ad.title,
+      editedPrice: this.ad.price
     };
   },
   methods: {
     onCancel() {
       this.editedDescription = this.ad.description;
       this.editedTitle = this.ad.title;
+      this.editedPrice = this.ad.price;
       this.modal = false;
     },
     onSave() {
-      if (this.editedDescription !== "" && this.editedTitle !== "") {
+      if (this.editedDescription !== "" && this.editedTitle !== "" && this.editedPrice !== "") {
         this.$store.dispatch("updateAd", {
           title: this.editedTitle,
           description: this.editedDescription,
+          price: this.editedPrice,
           id: this.ad.id
         });
 

@@ -37,6 +37,7 @@
               <div>
                 <h3 class="headline mb-0">{{ad.title}}</h3>
                 <div>{{ad.description}}</div>
+                <div>{{ad.price}}</div>
               </div>
             </v-card-title>
             <v-card-actions>

@@ -20,6 +20,14 @@
             multi-line
             :rules="[v => !!v || 'Description is required']"
           ></v-text-field>
+          <v-text-field
+            name="price"
+            label="Добавить цену"
+            type="number"
+            v-model="price"
+            multi-line
+            :rules="[v => !!v || 'Price is required']"
+          ></v-text-field>
         </v-form>
         <v-layout row class="mb-3">
           <v-flex xs12>
@@ -73,6 +81,7 @@ export default {
     return {
       title: "",
       description: "",
+      price: "",
       promo: false,
       valid: false,
       image: null,
@@ -90,6 +99,7 @@ export default {
         const ad = {
           title: this.title,
           description: this.description,
+          price: this.price,
           promo: this.promo,
           image: this.image
         };

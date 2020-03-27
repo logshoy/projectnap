@@ -25,35 +25,18 @@
       </v-navigation-drawer>
 
       <v-toolbar row dense app dark color="primary">
-        <v-app-bar-nav-icon
-          class="hidden-md-and-up"
-          @click.stop="drawer = !drawer"
-        ></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>
-          <router-link to="/" tag="span" class="pointer"
-            >Ad application</router-link
-          >
+          <router-link to="/" tag="span" class="pointer">Ad application</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items class=" hidden-sm-and-down">
-          <v-btn
-            depressed
-            color="primary"
-            v-for="link in links"
-            :key="link.title"
-            :to="link.url"
-          >
+        <v-toolbar-items class="hidden-sm-and-down">
+          <v-btn depressed color="primary" v-for="link in links" :key="link.title" :to="link.url">
             <v-icon v-text="link.icon" left></v-icon>
             {{ link.title }}
           </v-btn>
-          <v-btn
-            depressed
-            color="primary"
-            @click="onLogout"
-            v-if="isUserLoggedIn"
-          >
-            <v-icon left>mdi-logout</v-icon>
-            logout
+          <v-btn depressed color="primary" @click="onLogout" v-if="isUserLoggedIn">
+            <v-icon left>mdi-logout</v-icon>logout
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -61,6 +44,7 @@
       <v-content>
         <router-view></router-view>
       </v-content>
+      <Footer></Footer>
     </v-card>
 
     <template v-if="error">
@@ -79,52 +63,54 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        drawer: false
-      }
+import Footer from "@/components/Footer/Footer.vue";
+export default {
+  components: { Footer },
+  data() {
+    return {
+      drawer: false
+    };
+  },
+  computed: {
+    error() {
+      return this.$store.getters.error;
     },
-    computed: {
-      error() {
-        return this.$store.getters.error;
-      },
-      isUserLoggedIn() {
-        return this.$store.getters.isUserLoggedIn;
-      },
-      links() {
-        if (this.isUserLoggedIn) {
-          return [
-            { title: "Orders", icon: "mdi-star", url: "/orders" },
-            { title: "New ad", icon: "mdi-history", url: "/new" },
-            { title: "My ads", icon: "mdi-check-circle", url: "/list" }
-          ];
-        }
-
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
+    },
+    links() {
+      if (this.isUserLoggedIn) {
         return [
-          { title: "Login", icon: "mdi-folder", url: "/login" },
-          {
-            title: "Registration",
-            icon: "mdi-account-multiple",
-            url: "/registration"
-          }
+          { title: "Orders", icon: "mdi-star", url: "/orders" },
+          { title: "New ad", icon: "mdi-history", url: "/new" },
+          { title: "My ads", icon: "mdi-check-circle", url: "/list" }
         ];
       }
-    },
-    methods: {
-      closeError() {
-        this.$store.dispatch("clearError");
-      },
-      onLogout() {
-        this.$store.dispatch("logoutUser");
-        this.$router.push("/");
-      }
+
+      return [
+        { title: "Login", icon: "mdi-folder", url: "/login" },
+        {
+          title: "Registration",
+          icon: "mdi-account-multiple",
+          url: "/registration"
+        }
+      ];
     }
-  };
+  },
+  methods: {
+    closeError() {
+      this.$store.dispatch("clearError");
+    },
+    onLogout() {
+      this.$store.dispatch("logoutUser");
+      this.$router.push("/");
+    }
+  }
+};
 </script>
 
 <style scoped>
-  .pointer {
-    cursor: pointer;
-  }
+.pointer {
+  cursor: pointer;
+}
 </style>

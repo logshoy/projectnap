@@ -1,9 +1,10 @@
 import * as fb from 'firebase'
 
 class Ad {
-  constructor(title, description, ownerId, imageSrc = '', promo = false, id = null) {
+  constructor(title, description, price, ownerId, imageSrc = '', promo = false, id = null) {
     this.title = title
     this.description = description
+    this.price = price,
     this.ownerId = ownerId
     this.imageSrc = imageSrc
     this.promo = promo
@@ -45,6 +46,7 @@ export default {
         const newAd = new Ad(
           payload.title,
           payload.description,
+          payload.price,
           getters.user.id,
           '',
           payload.promo
@@ -88,7 +90,7 @@ export default {
         Object.keys(ads).forEach(key => {
           const ad = ads[key]
           resultAds.push(
-            new Ad(ad.title, ad.description, ad.ownerId, ad.imageSrc, ad.promo, key)
+            new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.promo, key)
           )
         })
 
@@ -100,16 +102,16 @@ export default {
         throw error
       }
     },
-    async updateAd ({commit}, {title, description, id}) {
+    async updateAd ({commit}, {title, description, price, id}) {
       commit('clearError')
       commit('setLoading', true)
 
       try {
         await fb.database().ref('ads').child(id).update({
-          title, description
+          title, description, price
         })
         commit('updateAd', {
-          title, description, id
+          title, description, price, id
         })
         commit('setLoading', false)
       } catch (error) {
