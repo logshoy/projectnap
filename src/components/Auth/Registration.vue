@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md6>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Registration form</v-toolbar-title>
+            <v-toolbar-title>Регистрация</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form v-model="valid" ref="form" lazy-validation>
@@ -19,7 +19,7 @@
               <v-text-field
                 prepend-icon="mdi-lock"
                 name="password"
-                label="Password"
+                label="Пароль"
                 type="password"
                 :counter="6"
                 v-model="password"
@@ -27,8 +27,8 @@
               ></v-text-field>
               <v-text-field
                 prepend-icon="mdi-lock"
-                name="confirm-password"
-                label="Confirm Password"
+                name="Confirm Password"
+                label="Подтверждение пароля"
                 type="password"
                 :counter="6"
                 v-model="confirmPassword"
@@ -43,7 +43,7 @@
               @click="onSubmit"
               :loading="loading"
               :disabled="!valid || loading"
-              >Create account!</v-btn
+              >Создать аккаунт</v-btn
             >
           </v-card-actions>
         </v-card>
@@ -63,18 +63,18 @@
         confirmPassword: "",
         valid: false,
         emailRules: [
-          v => !!v || "E-mail is required",
-          v => emailRegex.test(v) || "E-mail must be valid"
+          v => !!v || "E-mail обязательный",
+          v => emailRegex.test(v) || "E-mail должен быть валидным"
         ],
         passwordRules: [
-          v => !!v || "Password is required",
+          v => !!v || "Пароль обязательный",
           v =>
             (v && v.length >= 6) ||
-            "Password must be equal or more than 6 characters"
+            "Пароль должен быть больше чем 6 символов"
         ],
         confirmPasswordRules: [
-          v => !!v || "Password is required",
-          v => v === this.password || "Password should match"
+          v => !!v || "PПароль обязательный",
+          v => v === this.password || "Пароль не совпадает"
         ]
       };
     },

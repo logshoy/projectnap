@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row v-if="!loading && myAds.length !== 0">
       <v-flex xs12 sm6 offset-sm3>
-        <h1 class="text--secondary mb-3">My ads</h1>
+        <h1 class="text--secondary mb-3">Мои товары</h1>
 
         <v-card
           class="elevation-10 mb-3"
@@ -27,7 +27,7 @@
                 <v-btn
                   class="info"
                   :to="'/ad/' + ad.id"
-                >Open</v-btn>
+                >Открыть</v-btn>
               </v-card-actions>
             </v-flex>
           </v-layout>
@@ -36,7 +36,7 @@
     </v-layout>
     <v-layout v-else-if="!loading && myAds.length === 0">
       <v-flex xs12 class="text-xs-center">
-        <h1 class="text--primary">You have no ads</h1>
+        <h1 class="text--primary">У вас нет товаров</h1>
       </v-flex>
     </v-layout>
     <v-layout v-else>

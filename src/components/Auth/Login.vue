@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md6>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Login form</v-toolbar-title>
+            <v-toolbar-title>Авторизация</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form v-model="valid" ref="form" validation>
@@ -19,7 +19,7 @@
               <v-text-field
                 prepend-icon="mdi-lock"
                 name="password"
-                label="Password"
+                label="Пароль"
                 type="password"
                 :counter="6"
                 v-model="password"
@@ -35,7 +35,7 @@
               :loading="loading"
               :disabled="!valid || loading"
             >
-              Login
+              Войти
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -54,14 +54,14 @@
         password: "",
         valid: false,
         emailRules: [
-          v => !!v || "E-mail is required",
-          v => emailRegex.test(v) || "E-mail must be valid"
+          v => !!v || "E-mail обязательный",
+          v => emailRegex.test(v) || "E-mail должен быть валидным"
         ],
         passwordRules: [
-          v => !!v || "Password is required",
+          v => !!v || "Пароль обязательный",
           v =>
             (v && v.length >= 6) ||
-            "Password must be equal or more than 6 characters"
+            "Пароль должен быть больше чем 6 символов"
         ]
       };
     },
@@ -89,7 +89,7 @@
     },
     created() {
       if (this.$route.query["loginError"]) {
-        this.$store.dispatch("setError", "Please log in to access this page.");
+        this.$store.dispatch("setError", "Пожалуйста авторизируйтесь чтобы зайти на эту страницу");
       }
     }
   };

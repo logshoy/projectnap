@@ -2,11 +2,11 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h1 class="text--secondary mb-3">Create new ad</h1>
+        <h1 class="text--secondary mb-3">Добавить товар</h1>
         <v-form v-model="valid" ref="form" validation class="mb-3">
           <v-text-field
             name="title"
-            label="Ad title"
+            label="Добавить название"
             type="text"
             v-model="title"
             required
@@ -14,7 +14,7 @@
           ></v-text-field>
           <v-text-field
             name="description"
-            label="Ad description"
+            label="Добавить описание"
             type="text"
             v-model="description"
             multi-line
@@ -32,7 +32,7 @@
         <v-layout row class="mb-3">
           <v-flex xs12>
             <v-btn class="warning" @click="triggerUpload">
-              Upload
+              Изображение
               <v-icon right dark>mdi-image</v-icon>
             </v-btn>
             <input
@@ -56,7 +56,7 @@
         </v-layout>
         <v-layout row>
           <v-flex xs12>
-            <v-switch label="Add to promo?" v-model="promo" color="primary"></v-switch>
+            <v-switch label="Добавить в промо?" v-model="promo" color="primary"></v-switch>
           </v-flex>
         </v-layout>
         <v-layout row>
@@ -67,7 +67,7 @@
               :disabled="!valid || !image || loading"
               class="success"
               @click="createAd"
-            >Create ad</v-btn>
+            >Добавить товар</v-btn>
           </v-flex>
         </v-layout>
       </v-flex>

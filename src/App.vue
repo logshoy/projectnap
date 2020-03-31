@@ -17,7 +17,7 @@
                 <v-icon>mdi-logout</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Logout</v-list-item-title>
+                <v-list-item-title>Выйти</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -27,7 +27,7 @@
       <v-toolbar row dense app dark color="primary">
         <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>
-          <router-link to="/" tag="span" class="pointer">Ad application</router-link>
+          <router-link to="/" tag="span" class="pointer">Hookah69</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
@@ -36,7 +36,7 @@
             {{ link.title }}
           </v-btn>
           <v-btn depressed color="primary" @click="onLogout" v-if="isUserLoggedIn">
-            <v-icon left>mdi-logout</v-icon>logout
+            <v-icon left>mdi-logout</v-icon>Выйти
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -56,7 +56,7 @@
         :value="true"
       >
         {{ error }}
-        <v-btn flat dark @click.native="closeError">Close</v-btn>
+        <v-btn flat dark @click.native="closeError">Закрыть</v-btn>
       </v-snackbar>
     </template>
   </v-app>
@@ -81,16 +81,16 @@ export default {
     links() {
       if (this.isUserLoggedIn) {
         return [
-          { title: "Orders", icon: "mdi-star", url: "/orders" },
-          { title: "New ad", icon: "mdi-history", url: "/new" },
-          { title: "My ads", icon: "mdi-check-circle", url: "/list" }
+          { title: "Заказы", icon: "mdi-star", url: "/orders" },
+          { title: "Добавить", icon: "mdi-history", url: "/new" },
+          { title: "Мои товары", icon: "mdi-check-circle", url: "/list" }
         ];
       }
 
       return [
-        { title: "Login", icon: "mdi-folder", url: "/login" },
+        { title: "Авторизация", icon: "mdi-folder", url: "/login" },
         {
-          title: "Registration",
+          title: "Регистрация",
           icon: "mdi-account-multiple",
           url: "/registration"
         }

@@ -2,10 +2,10 @@
     <div>
     <v-footer app
     fixed
-    color="primary lighten-1"
+    color="primary"
     padless
     >
-      <v-row sdgsdg
+      <v-row 
         justify="center"
         no-gutters
       >
@@ -20,7 +20,7 @@
           {{ link }}
         </v-btn>
         <v-col
-          class="primary lighten-2 py-4 text-center white--text"
+          class="primary  py-4 text-center white--text"
           cols="12"
         >
           {{ new Date().getFullYear() }} — <strong>Vuetify</strong>

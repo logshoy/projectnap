@@ -42,7 +42,7 @@
             </v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn :to="'/ad/' + ad.id" class="mr-3">Open</v-btn>
+              <v-btn :to="'/ad/' + ad.id" class="mr-3">Открыть</v-btn>
               <app-buy-modal :ad="ad"></app-buy-modal>
             </v-card-actions>
           </v-card>
