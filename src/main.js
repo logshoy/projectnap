@@ -3,11 +3,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import BuyModalComponent from '@/components/Shared/BuyModal'
+import AddToCart from "@/components/Shared/AddToCart";
 import vuetify from './plugins/vuetify'
-import *as fb from 'firebase'
+import * as fb from 'firebase'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.component('app-buy-modal', BuyModalComponent)
+Vue.component('add-to-cart', AddToCart)
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -43,6 +43,9 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn :to="'/ad/' + ad.id" class="mr-3">Открыть</v-btn>
+              <add-to-cart
+              :ad="ad"
+              ></add-to-cart>
               <app-buy-modal :ad="ad"></app-buy-modal>
             </v-card-actions>
           </v-card>
@@ -78,7 +81,7 @@ export default {
     loading () {
       return this.$store.getters.loading
     }
- } 
+  }
 }
 </script>
 

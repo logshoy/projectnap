@@ -38,6 +38,14 @@
           <v-btn depressed color="primary" @click="onLogout" v-if="isUserLoggedIn">
             <v-icon left>mdi-logout</v-icon>Выйти
           </v-btn>
+          <v-btn depressed color="primary"  v-if="isUserLoggedIn">
+            <v-badge 
+            left 
+            color="warning"
+            ><span slot="badge">5</span>
+              <v-icon left>mdi-cart</v-icon>Корзина
+            </v-badge>
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
 

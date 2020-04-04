@@ -4,6 +4,7 @@ import ads from './ads'
 import user from './user'
 import shared from './shared'
 import orders from './orders'
+import cart from './cart'
 
 
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     ads,
     user,
     shared,
-    orders
+    orders,
+    cart
   }
 })
