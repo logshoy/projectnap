@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card color="grey lighten-4" flat height="250px" tile>
+    <v-card flat  >
       <v-navigation-drawer app temporary v-model="drawer">
         <v-list nav dense>
           <v-list-item-group v-model="item" color="primary">
@@ -38,11 +38,11 @@
           <v-btn depressed color="primary" @click="onLogout" v-if="isUserLoggedIn">
             <v-icon left>mdi-logout</v-icon>Выйти
           </v-btn>
-          <v-btn depressed color="primary"  v-if="isUserLoggedIn">
+          <v-btn depressed color="primary" to="/cart"  v-if="isUserLoggedIn">
             <v-badge 
             left 
             color="warning"
-            ><span slot="badge">5</span>
+            ><span slot="badge">{{totalQuantity}}</span>
               <v-icon left>mdi-cart</v-icon>Корзина
             </v-badge>
           </v-btn>
@@ -103,6 +103,9 @@ export default {
           url: "/registration"
         }
       ];
+    },
+    totalQuantity() {
+      return this.$store.getters.totalQuantity;
     }
   },
   methods: {

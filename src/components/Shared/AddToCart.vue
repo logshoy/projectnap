@@ -10,22 +10,23 @@
             <v-card-title>
               <h1>Корзина</h1>
             </v-card-title>
-            <v-layout v-for="item in cart" :key="item.cartId" >
+            <v-layout class="mt-3" v-for="item in cart" :key="item.cartId" >
                 <v-img
                   width="120px"
                   :src="item.cartImageSrc"
                 />
                 <v-card-text>
-                  <h3>{{item.cartTitle}}</h3>
-                  <p>{{item.cartDescription}}</p>
-                  <p>{{item.cartPrice}}</p>
+                  <h3>Название{{item.cartTitle}}</h3>
+                  <p>Описание{{item.cartDescription}}</p>
+                  <p>Цена:{{item.cartPrice}}</p>
+                  <p>Кол-вл{{item.cartQuantity}}</p>
                 </v-card-text>
-                <v-btn>Удалить</v-btn>
+                <v-btn @click="removeFromCart">Удалить</v-btn>
             </v-layout>
             <v-layout>
               <v-spacer></v-spacer>
               <v-btn class="mr-3">Продолжить покупки</v-btn>
-              <v-btn>В корзину</v-btn>
+              <v-btn to="/cart">В корзину</v-btn>
             </v-layout>
           </v-flex>
         </v-layout>
@@ -53,12 +54,12 @@ export default {
         cartId: this.ad.id,
         cartQuantity: 1
       };
-      this.$store.commit("addToCart", item);
+      this.$store.dispatch("addToCart", item);
+    },
+    removeFromCart() {
+      this.$store.dispatch("removeFromCart", this.item)
     }
+
   }
 };
 </script>
-
-
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->

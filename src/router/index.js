@@ -51,6 +51,12 @@ export default new Router({
       name: 'orders',
       component: Orders,
       beforeRouteEnter: AuthGuard
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import("@/views/Cart.vue"),
+      beforeRouteEnter: AuthGuard
     }
   ],
   mode: 'history'
