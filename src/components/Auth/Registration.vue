@@ -34,6 +34,14 @@
                 v-model="confirmPassword"
                 :rules="confirmPasswordRules"
               ></v-text-field>
+              <v-text-field
+                prepend-icon="mdi-account"
+                name="Nickname"
+                label="Nickname"
+                type="text"
+                v-model="nickname"
+                :rules="nicknameRules"
+              ></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -62,6 +70,7 @@
         password: "",
         confirmPassword: "",
         valid: false,
+        nickname: "",
         emailRules: [
           v => !!v || "E-mail обязательный",
           v => emailRegex.test(v) || "E-mail должен быть валидным"
@@ -75,7 +84,8 @@
         confirmPasswordRules: [
           v => !!v || "PПароль обязательный",
           v => v === this.password || "Пароль не совпадает"
-        ]
+        ],
+        nicknameRules: [v => !!v || "Nickname обязательный"]
       };
     },
     methods: {
@@ -83,7 +93,8 @@
         if (this.$refs.form.validate()) {
           const user = {
             email: this.email,
-            password: this.password
+            password: this.password,
+            nickname: this.nickname
           };
           this.$store
             .dispatch("registerUser", user)
@@ -91,8 +102,6 @@
               this.$router.push("/");
             })
             .catch(() => {});
-
-          console.log(user);
         }
       }
     }

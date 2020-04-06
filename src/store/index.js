@@ -5,6 +5,7 @@ import user from './user'
 import shared from './shared'
 import orders from './orders'
 import cart from './cart'
+import info from './info'
 
 
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     user,
     shared,
     orders,
-    cart
+    cart,
+    info
   }
 })

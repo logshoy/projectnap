@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card color="grey lighten-4" flat height="250px" tile>
+    <v-card flat tile>
       <v-navigation-drawer app temporary v-model="drawer">
         <v-list nav dense>
           <v-list-item-group v-model="item" color="primary">
@@ -35,14 +35,29 @@
             <v-icon v-text="link.icon" left></v-icon>
             {{ link.title }}
           </v-btn>
+                    <v-menu v-if="isUserLoggedIn" depressed>
+            <template v-slot:activator="{ on }">
+              <v-btn color="primary" v-on="on" depressed>{{ nickname }}</v-btn>
+            </template>
+            <v-list color="primary">
+              <v-list-item>
+                <v-btn depressed color="primary" to="/profile">Профиль</v-btn>
+              </v-list-item>
+              <v-list-item>
+                <v-btn depressed color="primary" @click="onLogout" v-if="isUserLoggedIn">
+                  <v-icon left>mdi-logout</v-icon>Выйти
+                </v-btn>
+              </v-list-item>
+            </v-list>
+          </v-menu>
           <v-btn depressed color="primary" @click="onLogout" v-if="isUserLoggedIn">
             <v-icon left>mdi-logout</v-icon>Выйти
           </v-btn>
-          <v-btn depressed color="primary"  v-if="isUserLoggedIn">
+          <v-btn depressed color="primary" to="/cart"  v-if="isUserLoggedIn">
             <v-badge 
             left 
             color="warning"
-            ><span slot="badge">5</span>
+            ><span class="mt-3" slot="badge">{{totalQuantity}}</span>
               <v-icon left>mdi-cart</v-icon>Корзина
             </v-badge>
           </v-btn>
@@ -103,6 +118,12 @@ export default {
           url: "/registration"
         }
       ];
+    },
+    totalQuantity() {
+      return this.$store.getters.totalQuantity;
+    },
+    nickname() {
+      return this.$store.getters.info.nickname;
     }
   },
   methods: {

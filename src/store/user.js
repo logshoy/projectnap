@@ -20,12 +20,16 @@ export default {
       commit
     }, {
       email,
-      password
+      password,
+      nickname
     }) {
       commit('clearError')
       commit('setLoading', true)
       try {
         const user = await fb.auth().createUserWithEmailAndPassword(email, password)
+        await fb.database().ref(`/users/${user.user.uid}/info`).set({
+          nickname
+        })
         commit('setUser', new User(user.user.uid))
         commit('setLoading', false)
       } catch (error) {
