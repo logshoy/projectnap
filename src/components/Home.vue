@@ -43,9 +43,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn :to="'/ad/' + ad.id" class="mr-3">Открыть</v-btn>
-              <add-to-cart
-              :ad="ad"
-              ></add-to-cart>
+              <add-to-cart v-if="isUserLoggedIn" :ad="ad" ></add-to-cart>
               <app-buy-modal :ad="ad"></app-buy-modal>
             </v-card-actions>
           </v-card>

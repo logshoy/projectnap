@@ -22,20 +22,6 @@
       </v-flex>
     </v-layout>
     <comments></comments>
-    <comment-grid
-      baseURL="https://your-app.firebaseio.com"
-      apiKey="your-api-key"
-      nodeName="nodeNameThatYouCreated"
-      maxUserNameLength="30"
-      maxCommentLength="1000"
-      initialMessageLimit="11"
-      maxLineLimit="40"
-      maxShowingDepth="5"
-      background="rgba(255, 255, 255, 0)"
-      commentBackgroundColor="rgba(255, 255, 255, 1)"
-      commentTextColor="rgba(29, 33, 41, 1)"
-      userNameColor="rgba(6, 177, 183, 1)">
-  </comment-grid>
   </v-container>
 </template>
 
