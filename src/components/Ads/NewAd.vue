@@ -28,6 +28,12 @@
             multi-line
             :rules="[v => !!v || 'Price is required']"
           ></v-text-field>
+          <v-select
+            label="Добавить категорию"
+            :items="items"
+            v-model="category"
+            :rules="[v => !!v || 'Category is required']"
+          ></v-select>
         </v-form>
         <v-layout row class="mb-3">
           <v-flex xs12>
@@ -85,7 +91,9 @@ export default {
       promo: false,
       valid: false,
       image: null,
-      imageSrc: ""
+      imageSrc: "",
+      category: "",
+      items: ['Foo', 'Bar', 'Fizz', 'Buzz']
     };
   },
   computed: {
@@ -101,7 +109,8 @@ export default {
           description: this.description,
           price: this.price,
           promo: this.promo,
-          image: this.image
+          image: this.image,
+          category: this.category
         };
 
         this.$store

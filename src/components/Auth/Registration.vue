@@ -72,20 +72,19 @@
         valid: false,
         nickname: "",
         emailRules: [
-          v => !!v || "E-mail обязательный",
-          v => emailRegex.test(v) || "E-mail должен быть валидным"
+          (v) => !!v || "E-mail обязательный",
+          (v) => emailRegex.test(v) || "E-mail должен быть валидным",
         ],
         passwordRules: [
-          v => !!v || "Пароль обязательный",
-          v =>
-            (v && v.length >= 6) ||
-            "Пароль должен быть больше чем 6 символов"
+          (v) => !!v || "Пароль обязательный",
+          (v) =>
+            (v && v.length >= 6) || "Пароль должен быть больше чем 6 символов",
         ],
         confirmPasswordRules: [
-          v => !!v || "PПароль обязательный",
-          v => v === this.password || "Пароль не совпадает"
+          (v) => !!v || "PПароль обязательный",
+          (v) => v === this.password || "Пароль не совпадает",
         ],
-        nicknameRules: [v => !!v || "Nickname обязательный"]
+        nicknameRules: [(v) => !!v || "Nickname обязательный"],
       };
     },
     methods: {
@@ -94,7 +93,7 @@
           const user = {
             email: this.email,
             password: this.password,
-            nickname: this.nickname
+            nickname: this.nickname,
           };
           this.$store
             .dispatch("registerUser", user)
@@ -103,7 +102,7 @@
             })
             .catch(() => {});
         }
-      }
-    }
+      },
+    },
   };
 </script>

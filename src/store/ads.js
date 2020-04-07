@@ -1,12 +1,13 @@
 import * as fb from 'firebase'
 
 class Ad {
-  constructor(title, description, price, ownerId, imageSrc = '', promo = false, id = null) {
+  constructor(title, description, price, ownerId, imageSrc = '', category, promo = false, id = null) {
     this.title = title
     this.description = description
-    this.price = price,
+    this.price = price
     this.ownerId = ownerId
     this.imageSrc = imageSrc
+    this.category = category
     this.promo = promo
     this.id = id
   }
@@ -53,6 +54,7 @@ export default {
           payload.price,
           getters.user.id,
           '',
+          payload.category,
           payload.promo
         )
 
@@ -95,7 +97,7 @@ export default {
         Object.keys(ads).forEach(key => {
           const ad = ads[key]
           resultAds.push(
-            new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.promo, key)
+            new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, key)
           )
         })
 
