@@ -21,7 +21,7 @@
         </div>
       </v-flex>
     </v-layout>
-    <comments :ad="ad"></comments>
+    <comments :id="id"></comments>
   </v-container>
 </template>
 
