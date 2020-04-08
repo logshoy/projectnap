@@ -1,22 +1,13 @@
 <template>
-<v-container>
+  <v-container>
     <v-layout row>
       <v-flex xs12 class="text-xs-center pt-5" v-if="loading">
-        <v-progress-circular
-          indeterminate
-          :size="100"
-          :width="4"
-          color="purple"
-        ></v-progress-circular>
+        <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
       </v-flex>
       <v-flex xs12 sm6 offset-sm3 v-else-if="!loading && orders.length !== 0">
         <h1 class="text--secondary mb-3">Orders</h1>
         <v-list two-line subheader>
-          <v-list-item
-            avatar
-            v-for="order in orders"
-            :key="order.id"
-          >
+          <v-list-item avatar v-for="order in orders" :key="order.id">
             <v-list-item-action>
               <v-checkbox
                 color="success"
@@ -30,10 +21,7 @@
               <v-list-item-subtitle>{{order.phone}}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn
-                :to="'/ad/' + order.adId"
-                class="primary"
-              >Открыть</v-btn>
+              <v-btn :to="'/ad/' + order.adId" class="primary">Открыть</v-btn>
             </v-list-item-action>
           </v-list-item>
         </v-list>
@@ -46,26 +34,27 @@
 </template>
 
 <script>
-  export default {
-    computed: {
-      loading () {
-        return this.$store.getters.loading
-      },
-      orders () {
-        return this.$store.getters.orders
-      }
+export default {
+  computed: {
+    loading() {
+      return this.$store.getters.loading;
     },
-    methods: {
-      markDone (order) {
-        this.$store.dispatch('markOrderDone', order.id)
-          .then(() => {
-            order.done = true
-          })
-          .catch(() => {})
-      }
-    },
-    created () {
-      this.$store.dispatch('fetchOrders')
+    orders() {
+      return this.$store.getters.orders;
     }
+  },
+  methods: {
+    markDone(order) {
+      this.$store
+        .dispatch("markOrderDone", order.id)
+        .then(() => {
+          order.done = true;
+        })
+        .catch(() => {});
+    }
+  },
+  created() {
+    this.$store.dispatch("fetchOrders");
   }
+};
 </script>

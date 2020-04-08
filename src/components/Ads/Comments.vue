@@ -18,7 +18,13 @@
         ></v-rating>
         <v-btn @click="sendComment" class="error">Отправить</v-btn>
       </v-form>
-      <v-card class="mt-5 d-flex">
+      <v-flex xs12 class="text-xs-center pt-5" v-if="loading">
+        <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
+      </v-flex>
+      <v-card v-for="item in comments.slice().reverse()" 
+      :key="item" class="mt-5 d-flex"
+      v-else-if="!loading && comments.length !== 0"
+      >
         <v-col md="1">
           <v-avatar class="mt-4" size="76px">
             <img
@@ -28,55 +34,45 @@
         </v-col>
         <v-col md="11">
           <v-row>
-            <v-card-title> Автор чорт </v-card-title>
+            <v-card-title> {{item.title}} </v-card-title>
             <v-spacer></v-spacer>
             <span style="display: flex; align-items:center; margin-right:10px"
-              >01.04.2020</span
+              >{{item.time}}</span
             >
             <v-rating size="38"></v-rating>
           </v-row>
-          <v-card-text
-            >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti
-            quaerat harum vel quod provident alias necessitatibus atque odit
-            molestias, nostrum cupiditate incidunt ex et facilis sunt
-            perferendis sit placeat dolorum beatae iste autem. Perspiciatis,
-            perferendis cum esse ut iste debitis. Inventore pariatur ipsum
-            dolores, quidem quisquam libero ea. Nam, eveniet error, neque amet
-            maiores alias eaque temporibus, perspiciatis dignissimos blanditiis
-            mollitia. Consequatur saepe consequuntur impedit magni, dolor
-            perspiciatis exercitationem laborum laudantium incidunt sint commodi
-            ipsam assumenda neque delectus dolorem doloremque est? Adipisci
-            dolor sequi quis, quos quo incidunt quia molestiae aperiam totam
-            maxime fugiat molestias nulla possimus excepturi. Consequuntur,
-            laboriosam.</v-card-text
-          >
+          <v-card-text>{{item.text}}
+          </v-card-text>
         </v-col>
       </v-card>
+      <v-flex xs12 class="text-xs-center" v-else>
+        <h1 class="text--secondary">У вас нет заказов</h1>
+      </v-flex>
     </v-container>
   </div>
 </template>
 
 <script>
   export default {
+    props: ['ad'],
     data() {
       return {
         rating: "",
         title: "",
         text: "",
-        adId: this.ad.id 
+        now: new Date(),
       };
     },
     computed: {
-      orders() {
+      comments() {
         return this.$store.getters.comments;
       },
-      ad() {
-        const id = this.id;
-        return this.$store.getters.adById(id);
-    },
     },
     mounted() {
-       this.$store.dispatch("fetchComments", {adId: this.ad.id} );
+      this.$store.dispatch("fetchComments", { adId: this.ad.id });
+    },
+    beforeDestroy(){
+      this.$store.state.commit('destroyComments')
     },
     methods: {
       sendComment() {
@@ -85,6 +81,7 @@
             title: this.title,
             text: this.text,
             adId: this.ad.id,
+            time: this.now 
           })
           .finally(() => {
             this.title = "";

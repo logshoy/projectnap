@@ -1,9 +1,10 @@
 import * as fb from 'firebase'
 
 class Comment {
-    constructor(title, text) {
+    constructor(title, text, time) {
         this.title = title,
-            this.text = text
+            this.text = text,
+            this.time = time
     }
 }
 export default {
@@ -12,7 +13,10 @@ export default {
     },
     mutations: {
         loadComments(state, payload) {
-            state.orders = payload
+            state.comments = payload
+        },
+        destroyComments(state) {
+            state.comments = 0
         }
     },
     actions: {
@@ -22,8 +26,19 @@ export default {
             title,
             text,
             adId,
+            time
         }) {
-            const comment = new Comment(title, text)
+            const options = {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }
+            const format = new Intl.DateTimeFormat('ru-Ru', options).format(time);
+            const parse = format.toString()
+            const comment = new Comment(title, text, parse)
             commit('clearError')
             try {
                 await fb.database().ref(`/ads/${adId}/comments`).push(comment)
@@ -34,31 +49,28 @@ export default {
         },
 
         async fetchComments({
-            commit
-        }, adId) {
+            commit,
+        }, {
+            adId
+        }) {
             commit('setLoading', true)
             commit('clearError')
             const resultComments = []
-            console.log(adId)
-            const ad = Object.keys(adId)
-            console.log(ad)
+
             try {
                 const fbVal = await fb.database().ref(`/ads/${adId}/comments`).once('value')
                 const comments = fbVal.val()
-                console.log(comments)
 
                 Object.keys(comments).forEach(key => {
                     const c = comments[key]
                     resultComments.push(
-                        new Comment(c.title, c.text, key)
+                        new Comment(c.title, c.text, c.time, key)
                     )
                 })
-                console.log(resultComments)
                 commit('loadComments', resultComments)
                 commit('setLoading', false)
             } catch (error) {
                 commit('setLoading', false)
-                commit('setError', error.message)
             }
         }
     },
