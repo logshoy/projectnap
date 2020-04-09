@@ -35,7 +35,7 @@
             <v-icon v-text="link.icon" left></v-icon>
             {{ link.title }}
           </v-btn>
-                    <v-menu v-if="isUserLoggedIn" depressed>
+            <v-menu v-if="isUserLoggedIn" depressed>
             <template v-slot:activator="{ on }">
               <v-btn color="primary" v-on="on" depressed>{{ nickname }}</v-btn>
             </template>

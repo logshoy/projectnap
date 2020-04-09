@@ -1,10 +1,11 @@
 import * as fb from 'firebase'
 
 class Comment {
-    constructor(title, text, time) {
+    constructor(title, text, time, rating ) {
         this.title = title,
             this.text = text,
-            this.time = time
+            this.time = time,
+            this.rating = rating 
     }
 }
 export default {
@@ -26,7 +27,8 @@ export default {
             title,
             text,
             adId,
-            time
+            time,
+            rating
         }) {
             const options = {
                 day: '2-digit',
@@ -38,7 +40,7 @@ export default {
             }
             const format = new Intl.DateTimeFormat('ru-Ru', options).format(time);
             const parse = format.toString()
-            const comment = new Comment(title, text, parse)
+            const comment = new Comment(title, text, parse,rating)
             commit('clearError')
             try {
                 await fb.database().ref(`/ads/${adId}/comments`).push(comment)
@@ -64,7 +66,7 @@ export default {
                 Object.keys(comments).forEach(key => {
                     const c = comments[key]
                     resultComments.push(
-                        new Comment(c.title, c.text, c.time, key)
+                        new Comment(c.title, c.text, c.time, c.rating, key)
                     )
                 })
                 commit('loadComments', resultComments)

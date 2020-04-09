@@ -57,11 +57,6 @@
         </v-layout>
         <v-layout row>
           <v-flex xs12>
-            <img src height="100" />
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs12>
             <v-switch label="Добавить в промо?" v-model="promo" color="primary"></v-switch>
           </v-flex>
         </v-layout>
@@ -93,7 +88,7 @@ export default {
       image: null,
       imageSrc: "",
       category: "",
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz']
+      items: ["Foo", "Bar", "Fizz", "Buzz"]
     };
   },
   computed: {
