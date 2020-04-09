@@ -11,19 +11,20 @@ export default {
     },
     actions: {
         async updateInfo({
-            commit,
-            getters
-        }, toUpdate) {
+            commit
+        },{nickname,
+        image}) {
             try {
                 const uid = await this.getters.user.id
                 console.log(uid)
-                console.log(toUpdate.image, 'ss')
-                const imageExt = toUpdate.image.name.slice(toUpdate.image.name.lastIndexOf('.'))
-                const fileData = await fb.storage().ref(`users/${uid}.${imageExt}`).put(toUpdate.image)
+                console.log(nickname, 'ww')
+                console.log(image, 'ss')
+                const imageExt = image.name.slice(image.name.lastIndexOf('.'))
+                const fileData = await fb.storage().ref(`users/${uid}.${imageExt}`).put(image)
                 const imageSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
                 const updateData = {
-                    ...getters.info,
-                    ...toUpdate
+                    nickname,
+                    imageSrc
                 }
                 await fb
                     .database()

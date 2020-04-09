@@ -51,7 +51,6 @@ export default {
   },
   created() {
     this.name = this.info.nickname;
-    console.log(this.$store.getters.user.id, "ss");
   },
   methods: {
     ...mapActions(["updateInfo"]),

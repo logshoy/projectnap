@@ -62,7 +62,7 @@
             </v-badge>
           </v-btn>
           <v-avatar>
-            <v-img :src="avatar">{{avatar}}</v-img>
+            <v-img :src="avatar"></v-img>
           </v-avatar>
         </v-toolbar-items>
       </v-toolbar>
