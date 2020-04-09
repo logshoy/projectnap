@@ -61,6 +61,9 @@
               <v-icon left>mdi-cart</v-icon>Корзина
             </v-badge>
           </v-btn>
+          <v-avatar>
+            <v-img :src="avatar">{{avatar}}</v-img>
+          </v-avatar>
         </v-toolbar-items>
       </v-toolbar>
 
@@ -124,7 +127,10 @@ export default {
     },
     nickname() {
       return this.$store.getters.info.nickname;
-    }
+    },
+    avatar() {
+      return this.$store.getters.info.imageSrc;
+    },
   },
   methods: {
     closeError() {

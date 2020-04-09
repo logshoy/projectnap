@@ -57,7 +57,8 @@ export default {
     ...mapActions(["updateInfo"]),
     async submitHandler() {
       await this.updateInfo({
-        nickname: this.name
+        nickname: this.name,
+        image: this.image
       });
     },
     triggerUpload() {
