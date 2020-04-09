@@ -51,13 +51,13 @@ export default {
   },
   created() {
     this.name = this.info.nickname;
-    console.log(this.name, "ss");
+    console.log(this.$store.getters.user.id, "ss");
   },
   methods: {
     ...mapActions(["updateInfo"]),
     async submitHandler() {
       await this.updateInfo({
-        name: this.name
+        nickname: this.name
       });
     },
     triggerUpload() {

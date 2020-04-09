@@ -10,6 +10,27 @@ export default {
         }
     },
     actions: {
+        async updateInfo({
+            commit,
+            getters
+          }, toUpdate) {
+            try {
+              const uid = await this.getters.user.id
+              console.log(uid)
+              const updateData = {
+                ...getters.info,
+                ...toUpdate
+              }
+              await fb
+                .database()
+                .ref(`/users/${uid}/info`)
+                .update(updateData)
+              commit('setInfo', updateData)
+            } catch (e) {
+              commit('setError', e)
+              throw e
+            }
+          },
     async fetchInfo({
         commit
     }, uid) {
