@@ -35,9 +35,20 @@
             <v-icon v-text="link.icon" left></v-icon>
             {{ link.title }}
           </v-btn>
-            <v-menu v-if="isUserLoggedIn" depressed>
+                    <v-btn depressed color="primary" to="/cart" v-if="isUserLoggedIn">
+            <v-badge offset-y=10 left color="warning">
+              <span class="mt-3" slot="badge">{{totalQuantity}}</span>
+              <v-icon left>mdi-cart</v-icon>Корзина
+            </v-badge>
+          </v-btn>
+          <v-menu v-if="isUserLoggedIn" depressed>
             <template v-slot:activator="{ on }">
-              <v-btn color="primary" v-on="on" depressed>{{ nickname }}</v-btn>
+              <v-btn color="primary" v-on="on" depressed>
+                <v-avatar class="mr-3" size="40">
+                  <v-img :src="avatar"></v-img>
+                </v-avatar>
+                {{ nickname }}
+              </v-btn>
             </template>
             <v-list color="primary">
               <v-list-item>
@@ -50,23 +61,8 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-btn depressed color="primary" @click="onLogout" v-if="isUserLoggedIn">
-            <v-icon left>mdi-logout</v-icon>Выйти
-          </v-btn>
-          <v-btn depressed color="primary" to="/cart"  v-if="isUserLoggedIn">
-            <v-badge 
-            left 
-            color="warning"
-            ><span class="mt-3" slot="badge">{{totalQuantity}}</span>
-              <v-icon left>mdi-cart</v-icon>Корзина
-            </v-badge>
-          </v-btn>
-          <v-avatar>
-            <v-img :src="avatar"></v-img>
-          </v-avatar>
         </v-toolbar-items>
       </v-toolbar>
-
       <v-content>
         <router-view></router-view>
       </v-content>
@@ -130,7 +126,7 @@ export default {
     },
     avatar() {
       return this.$store.getters.info.imageSrc;
-    },
+    }
   },
   methods: {
     closeError() {
@@ -139,6 +135,7 @@ export default {
     onLogout() {
       this.$store.dispatch("logoutUser");
       this.$router.push("/");
+      this.$store.dispatch("clearCart");
     }
   }
 };

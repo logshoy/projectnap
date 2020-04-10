@@ -11,7 +11,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <add-to-cart v-if="isUserLoggedIn" :ad="ad" ></add-to-cart>
+            <add-to-cart v-if="isUserLoggedIn" :ad="ad"></add-to-cart>
             <app-buy-modal></app-buy-modal>
           </v-card-actions>
         </v-card>

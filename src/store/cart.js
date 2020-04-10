@@ -9,14 +9,13 @@ export default {
 
             let found = state.cart.find(cart => cart.cartId == item.cartId);
 
-            if(found){
-               found.cartQuantity++;
+            if (found) {
+                found.cartQuantity++;
             } else {
                 state.cart.push(item);
             }
-        
-        },
 
+        },
         saveData(state) {
             window.localStorage.setItem('cart', JSON.stringify(state.cart));
         },
@@ -24,18 +23,30 @@ export default {
 
             let index = state.cart.indexOf(item);
             state.cart.splice(index, 1);
-      
+
             this.commit('saveData');
-      
-          },
+
+        },
+        clearCart(state) {
+            state.cart.splice(0);
+        }
     },
     actions: {
-        addToCart({commit}, item) {
+        addToCart({
+            commit
+        }, item) {
             commit('addToCart', item)
             commit('saveData');
         },
-        removeFromCart({commit}, item) {
+        removeFromCart({
+            commit
+        }, item) {
             commit('removeFromCart', item)
+        },
+        clearCart({commit}) {
+            console.log('sss');
+            localStorage.clear();
+            commit('clearCart');
         }
     },
 
@@ -46,9 +57,9 @@ export default {
         totalPrice: state => {
             let total = 0;
             state.cart.filter((item) => {
-              total += (item.cartPrice * item.cartQuantity);
+                total += (item.cartPrice * item.cartQuantity);
             });
-      
+
             return total;
         },
         totalQuantity: state => {
@@ -56,7 +67,7 @@ export default {
             state.cart.filter((item) => {
                 total += item.cartQuantity
             })
-            return total;          
+            return total;
         }
     }
 }
