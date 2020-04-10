@@ -1,13 +1,26 @@
 import * as fb from 'firebase'
 
 class Comment {
-    constructor(title, text, time, rating ) {
+    constructor(title, text, time, rating, uid) {
         this.title = title,
             this.text = text,
             this.time = time,
-            this.rating = rating 
+            this.rating = rating,
+            this.uid = uid
     }
 }
+class giveComment {
+    constructor(title, text, time, rating, uid, nickname,imageSrc) {
+        this.title = title,
+            this.text = text,
+            this.time = time,
+            this.rating = rating,
+            this.uid = uid,
+            this.nickname = nickname,
+            this.imageSrc = imageSrc
+    }
+}
+
 export default {
     state: {
         comments: []
@@ -38,9 +51,11 @@ export default {
                 minute: '2-digit',
                 second: '2-digit'
             }
+            const uid = await this.getters.user.id
+            console.log(uid)
             const format = new Intl.DateTimeFormat('ru-Ru', options).format(time);
             const parse = format.toString()
-            const comment = new Comment(title, text, parse,rating)
+            const comment = new Comment(title, text, parse, rating, uid)
             commit('clearError')
             try {
                 await fb.database().ref(`/ads/${adId}/comments`).push(comment)
@@ -63,12 +78,19 @@ export default {
                 const fbVal = await fb.database().ref(`/ads/${adId}/comments`).once('value')
                 const comments = fbVal.val()
 
-                Object.keys(comments).forEach(key => {
-                    const c = comments[key]
-                    resultComments.push(
-                        new Comment(c.title, c.text, c.time, c.rating, key)
+                const arr = Object.keys(comments)
+                for (const item of arr) {
+                    const c = comments[item]
+                    const info = (await fb
+                        .database()
+                        .ref(`/users/${c.uid}/info`)
+                        .once('value')).val()
+
+                        resultComments.push(
+                        new giveComment(c.title, c.text, c.time, c.rating, c.uid, info.nickname,
+                            info.imageSrc)
                     )
-                })
+                }
                 commit('loadComments', resultComments)
                 commit('setLoading', false)
             } catch (error) {
