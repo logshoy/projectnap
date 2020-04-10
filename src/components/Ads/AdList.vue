@@ -17,6 +17,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
+                <addEditAdModal :ad="ad" ></addEditAdModal>
                 <v-btn class="info" :to="'/ad/' + ad.id">Открыть</v-btn>
               </v-card-actions>
             </v-flex>
@@ -38,6 +39,7 @@
 </template>
 
 <script>
+import EditAdModal from "./EditAdModal";
 export default {
   computed: {
     myAds() {
@@ -46,6 +48,9 @@ export default {
     loading() {
       return this.$store.getters.loading;
     }
+  },
+    components: {
+    addEditAdModal: EditAdModal
   }
 };
 </script>

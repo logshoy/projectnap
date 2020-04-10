@@ -11,8 +11,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <addEditAdModal :ad="ad" v-if="isOwner"></addEditAdModal>
-            <add-to-cart></add-to-cart>
+            <add-to-cart v-if="isUserLoggedIn" :ad="ad" ></add-to-cart>
             <app-buy-modal></app-buy-modal>
           </v-card-actions>
         </v-card>
@@ -26,7 +25,6 @@
 </template>
 
 <script>
-import EditAdModal from "./EditAdModal";
 import Comments from "./Comments.vue";
 
 export default {
@@ -39,13 +37,12 @@ export default {
     loading() {
       return this.$store.getters.loading;
     },
-    isOwner() {
-      return this.ad.ownerId === this.$store.getters.user.id;
-    }
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
+    },
   },
   components: {
     Comments,
-    addEditAdModal: EditAdModal,
   }
 };
 </script>

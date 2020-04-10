@@ -59,7 +59,10 @@ export default {
     },
     loading() {
       return this.$store.getters.loading;
-    }
+    },
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
+    },
   }
 };
 </script>
