@@ -73,6 +73,7 @@ export default {
             commit('setLoading', true)
             commit('clearError')
             const resultComments = []
+            const ratingAd = []
 
             try {
                 const fbVal = await fb.database().ref(`/ads/${adId}/comments`).once('value')
@@ -85,12 +86,14 @@ export default {
                         .database()
                         .ref(`/users/${c.uid}/info`)
                         .once('value')).val()
-
+                        console.log(c.rating)
+                        ratingAd.push(c.rating)
                         resultComments.push(
                         new giveComment(c.title, c.text, c.time, c.rating, c.uid, info.nickname,
                             info.imageSrc)
                     )
                 }
+                console.log(ratingAd)
                 commit('loadComments', resultComments)
                 commit('setLoading', false)
             } catch (error) {
