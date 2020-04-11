@@ -23,7 +23,8 @@ class giveComment {
 
 export default {
     state: {
-        comments: []
+        comments: [],
+        ratingAd: ""
     },
     mutations: {
         loadComments(state, payload) {
@@ -31,6 +32,9 @@ export default {
         },
         destroyComments(state) {
             state.comments = 0
+        },
+        ratingAd(state,payload) {
+            state.ratingAd = payload
         }
     },
     actions: {
@@ -52,7 +56,6 @@ export default {
                 second: '2-digit'
             }
             const uid = await this.getters.user.id
-            console.log(uid)
             const format = new Intl.DateTimeFormat('ru-Ru', options).format(time);
             const parse = format.toString()
             const comment = new Comment(title, text, parse, rating, uid)
@@ -86,14 +89,17 @@ export default {
                         .database()
                         .ref(`/users/${c.uid}/info`)
                         .once('value')).val()
-                        console.log(c.rating)
                         ratingAd.push(c.rating)
                         resultComments.push(
                         new giveComment(c.title, c.text, c.time, c.rating, c.uid, info.nickname,
                             info.imageSrc)
                     )
                 }
+                const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
                 console.log(ratingAd)
+                const Adrating = ratingAd.reduce(reducer)/ratingAd.length
+                commit('ratingAd', Adrating)
                 commit('loadComments', resultComments)
                 commit('setLoading', false)
             } catch (error) {
@@ -104,6 +110,9 @@ export default {
     getters: {
         comments(state) {
             return state.comments
+        },
+        ratingAd(state) {
+            return state.ratingAd
         }
     }
 }

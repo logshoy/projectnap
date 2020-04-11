@@ -22,7 +22,6 @@
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">{{ad.title}}</h3>
-                {{ads[0-6]}}
                 <div>{{ad.description}}</div>
                 <div>{{ad.price}}</div>
               </div>
