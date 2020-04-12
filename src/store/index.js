@@ -7,6 +7,7 @@ import orders from './orders'
 import cart from './cart'
 import info from './info'
 import comment from './comment'
+import category from './category'
 
 
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     orders,
     cart,
     info,
-    comment
+    comment,
+    category
   }
 })

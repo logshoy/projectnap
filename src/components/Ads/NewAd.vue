@@ -30,7 +30,7 @@
           ></v-text-field>
           <v-select
             label="Добавить категорию"
-            :items="items"
+            :items="categoryList"
             v-model="category"
             :rules="[v => !!v || 'Category is required']"
           ></v-select>
@@ -94,7 +94,13 @@ export default {
   computed: {
     loading() {
       return this.$store.getters.loading;
-    }
+    },
+    categoryList() {
+      return this.$store.getters.category;
+    },
+  },
+  mounted() {
+      this.$store.dispatch('featchCategory')
   },
   methods: {
     createAd() {
