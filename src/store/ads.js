@@ -60,11 +60,14 @@ export default {
 
         const ad = await fb.database().ref('ads').push(newAd)
         const imageExt = image.name.slice(image.name.lastIndexOf('.'))
-
+        let categorykey = ad.key
+        console.log(categorykey)
+        console.log(payload.category)
+        let update = {[`category/${payload.category}/ads/${ad.key}`]:true,
+        [`ads/${ad.key}/category/${payload.category}`]:true}
         const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExt}`).put(image)
         const imageSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
-        console.log(imageSrc)
-
+        await fb.database().ref().update(update)
         await fb.database().ref('ads').child(ad.key).update({
           imageSrc
         })

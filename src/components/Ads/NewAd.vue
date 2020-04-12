@@ -87,8 +87,7 @@ export default {
       valid: false,
       image: null,
       imageSrc: "",
-      category: "",
-      items: ["Foo", "Bar", "Fizz", "Buzz"]
+      category: ""
     };
   },
   computed: {
