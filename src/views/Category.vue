@@ -3,8 +3,8 @@
     <v-container grid-list-lg>
       <h1>Категория</h1>
       <h2>{{category}}</h2>
-      <v-layout row wrap>
-        <v-flex xs12 sm6 md4 v-for="ad of categoryAds" :key="ad.id">
+      <v-layout row wrap :pagination.sync="pagination">
+        <v-flex xs12 sm6 md4 v-for="ad of visiblePages" :key="ad.id">
           <v-card>
             <v-img :src="ad.imageSrc" height="200px"></v-img>
             <v-card-title primary-title>
@@ -12,7 +12,6 @@
                 <h3 class="headline mb-0">{{ad.title}}</h3>
                 <div>{{ad.description}}</div>
                 <div>{{ad.price}}</div>
-                <div>{{ad.category}}</div>
               </div>
             </v-card-title>
             <v-card-actions>
@@ -23,6 +22,7 @@
             </v-card-actions>
           </v-card>
         </v-flex>
+        <v-pagination v-model="page" :length="Math.ceil(this.categoryAds.length/perPage)" circle></v-pagination>
       </v-layout>
     </v-container>
   </div>
@@ -30,11 +30,20 @@
 <script>
 export default {
   props: ["category"],
+  data() {
+    return {
+      page: 1,
+      perPage: 6
+    };
+  },
   computed: {
     categoryAds() {
-      const category = this.category
-      return this.$store.getters.categoryAds(category)
+      const category = this.category;
+      return this.$store.getters.categoryAds(category);
     },
+    visiblePages () {
+      return this.categoryAds.slice((this.page - 1)* this.perPage, this.page* this.perPage)
+    }
   }
 };
 </script>
