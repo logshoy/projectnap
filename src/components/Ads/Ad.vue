@@ -9,6 +9,7 @@
             <p>{{ad.description}}</p>
             <p>{{ad.price}}</p>
             <h3>{{ratingAd}}</h3>
+            <p>{{ad.category}}</p>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -47,6 +48,6 @@ export default {
   },
   components: {
     Comments,
-  }
+  },
 };
 </script>

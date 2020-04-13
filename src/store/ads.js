@@ -54,15 +54,15 @@ export default {
           payload.price,
           getters.user.id,
           '',
-          payload.category,
+          '',
           payload.promo
         )
 
         const ad = await fb.database().ref('ads').push(newAd)
         const imageExt = image.name.slice(image.name.lastIndexOf('.'))
-        let categorykey = ad.key
-        console.log(categorykey)
-        console.log(payload.category)
+        const keys = payload.category
+        console.log(newAd)
+        console.log(keys)
         let update = {
           [`category/${payload.category}/ads/${ad.key}`]: true,
           [`ads/${ad.key}/category/${payload.category}`]: true
@@ -79,7 +79,8 @@ export default {
         commit('createAd', {
           ...newAd,
           id: ad.key,
-          imageSrc
+          imageSrc,
+          category: { [keys]:true } 
         })
       } catch (error) {
         commit('setError', error.message)
@@ -159,13 +160,12 @@ export default {
         return ad.ownerId === getters.user.id
       })
     },
-    categoryAds(state, getters) {
-      // const list = ['-M4iMZf3tjRRXkUn2oNS', '-M4nAPRnZMKh_bu-R4Cl']
-      const listCat = getters.categoryList
-      const arrCat = Object.values(listCat)
-      return state.ads.filter(ad => {
-        return arrCat.includes(ad.id)
-      })
+    categoryAds(state) {
+      return categoryId => {
+        return state.ads.filter(ad => {
+          return Object.keys(ad.category).includes(categoryId)
+        })
+      }
     },
     adById(state) {
       return adId => {

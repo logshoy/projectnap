@@ -12,6 +12,7 @@
                 <h3 class="headline mb-0">{{ad.title}}</h3>
                 <div>{{ad.description}}</div>
                 <div>{{ad.price}}</div>
+                <div>{{ad.category}}</div>
               </div>
             </v-card-title>
             <v-card-actions>
@@ -31,15 +32,9 @@ export default {
   props: ["category"],
   computed: {
     categoryAds() {
-      return this.$store.getters.categoryAds
+      const category = this.category
+      return this.$store.getters.categoryAds(category)
     },
-    categoryList() {
-      return this.$store.getters.categoryList
-    }
-  },
-  async mounted() {
-     await this.$store.dispatch("featchThisCategory",{ categoryNow: this.category});
-      console.log(this.category)
   }
 };
 </script>
