@@ -98,9 +98,6 @@ export default {
       return this.$store.getters.category;
     },
   },
-  mounted() {
-      this.$store.dispatch('featchCategory')
-  },
   methods: {
     createAd() {
       if (this.$refs.form.validate() && this.image) {

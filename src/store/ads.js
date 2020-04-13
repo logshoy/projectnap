@@ -63,8 +63,10 @@ export default {
         let categorykey = ad.key
         console.log(categorykey)
         console.log(payload.category)
-        let update = {[`category/${payload.category}/ads/${ad.key}`]:true,
-        [`ads/${ad.key}/category/${payload.category}`]:true}
+        let update = {
+          [`category/${payload.category}/ads/${ad.key}`]: true,
+          [`ads/${ad.key}/category/${payload.category}`]: true
+        }
         const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExt}`).put(image)
         const imageSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
         await fb.database().ref().update(update)
@@ -155,6 +157,14 @@ export default {
     myAds(state, getters) {
       return state.ads.filter(ad => {
         return ad.ownerId === getters.user.id
+      })
+    },
+    categoryAds(state, getters) {
+      // const list = ['-M4iMZf3tjRRXkUn2oNS', '-M4nAPRnZMKh_bu-R4Cl']
+      const listCat = getters.categoryList
+      const arrCat = Object.values(listCat)
+      return state.ads.filter(ad => {
+        return arrCat.includes(ad.id)
       })
     },
     adById(state) {

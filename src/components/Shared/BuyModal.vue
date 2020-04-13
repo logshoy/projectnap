@@ -36,12 +36,12 @@
           <v-flex xs12>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat @click="onCancel" :disabled="localLoading"
+              <v-btn text @click="onCancel" :disabled="localLoading"
                 >Close</v-btn
               >
               <v-btn
                 class="success"
-                flat
+                text
                 @click="onSave"
                 :disabled="localLoading"
                 :loading="localLoading"

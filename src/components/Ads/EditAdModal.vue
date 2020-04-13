@@ -38,8 +38,8 @@
           <v-flex xs12>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat @click="onCancel">Закрыть</v-btn>
-              <v-btn class="success" flat @click="onSave">Сохранить</v-btn>
+              <v-btn text @click="onCancel">Закрыть</v-btn>
+              <v-btn class="success" text @click="onSave">Сохранить</v-btn>
             </v-card-actions>
           </v-flex>
         </v-layout>

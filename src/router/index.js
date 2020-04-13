@@ -21,8 +21,13 @@ export default new Router({
       path: '/ad/:id',
       props: true,
       name: 'ad',
-      component: Ad,
-      beforeRouteEnter: AuthGuard
+      component: Ad
+    },
+    {
+      path: '/category/:category',
+      props: true,
+      name: 'category',
+      component: () => import("@/views/Category.vue")
     },
     {
       path: '/list',

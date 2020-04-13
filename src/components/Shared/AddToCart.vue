@@ -1,7 +1,7 @@
 <template>
   <v-dialog width="800px" v-model="modal">
     <template v-slot:activator="{ on }">
-      <v-btn flat class="success mr-3" v-on="on" @click="addToCart">Add to Cart</v-btn>
+      <v-btn text class="success mr-3" v-on="on" @click="addToCart">Add to Cart</v-btn>
     </template>
     <v-card>
       <v-container>
@@ -39,6 +39,11 @@
 export default {
   name: "add-to-cart",
   props: ["ad"],
+  data() {
+      return {
+        modal: false 
+        }
+  },
   computed: {
     cart() {
       return this.$store.getters.cart;

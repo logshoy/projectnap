@@ -43,6 +43,7 @@ new Vue({
     })
 
     this.$store.dispatch('fetchAds')
+    this.$store.dispatch('featchCategory')
 
   },
   render: h => h(App)
