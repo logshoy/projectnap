@@ -1,6 +1,6 @@
 <template>
-  <app>
-    <v-app id="app">
+  <app id="app">
+    <v-app>
       <v-card>
         <v-navigation-drawer app temporary v-model="drawer">
           <v-list nav dense>
@@ -77,7 +77,14 @@
         <v-content>
           <router-view></router-view>
         </v-content>
-        <Footer></Footer>
+        <v-footer app fixed color="primary" padless>
+      <v-row justify="center" no-gutters>
+        <v-col class="primary py-4 text-center white--text" cols="12">
+          {{ new Date().getFullYear() }} —
+          <strong>Vuetify</strong>
+        </v-col>
+      </v-row>
+    </v-footer>
       </v-card>
 
       <template v-if="error">
@@ -97,9 +104,7 @@
 </template>
 
 <script>
-import Footer from "@/components/Footer/Footer.vue";
 export default {
-  components: { Footer },
   data() {
     return {
       drawer: false

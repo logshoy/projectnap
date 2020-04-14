@@ -15,7 +15,7 @@
     </v-container>
     <v-container grid-list-lg>
       <v-layout row wrap>
-        <v-flex xs12 sm6 md4 v-for="ad of ads" :key="ad.id">
+        <v-flex xs12 sm6 md4 v-for="ad of ads.slice().reverse().slice(0,6)" :key="ad.id">
           <v-card>
             <v-img :src="ad.imageSrc" height="200px"></v-img>
             <v-card-title primary-title>

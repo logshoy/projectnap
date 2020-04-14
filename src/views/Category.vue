@@ -1,9 +1,21 @@
 <template>
   <div>
     <v-container grid-list-lg>
-      <h1>Категория</h1>
-      <h2>{{category}}</h2>
-      <v-layout row wrap :pagination.sync="pagination">
+      <h1>Категория {{category}}</h1>
+      <v-menu>
+        <template v-slot:activator="{ on }">
+          <v-btn color="primary" v-on="on" depressed>Сортировка</v-btn>
+        </template>
+        <v-list color="primary">
+          <v-list-item v-for="item in items" :key="item">
+            <v-btn @click="select(index)" depressed color="primary">{{item}}</v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-col cols="12" sm="6" md="3">
+        <v-text-field prepend-inner-icon="mdi-lock" label="Regular" v-model="search"></v-text-field>
+      </v-col>
+      <v-layout row wrap>
         <v-flex xs12 sm6 md4 v-for="ad of visiblePages" :key="ad.id">
           <v-card>
             <v-img :src="ad.imageSrc" height="200px"></v-img>
@@ -22,7 +34,7 @@
             </v-card-actions>
           </v-card>
         </v-flex>
-        <v-pagination v-model="page" :length="Math.ceil(this.categoryAds.length/perPage)" circle></v-pagination>
+        <v-pagination :total-visible="5" v-model="page" :length="Math.ceil(this.filteredItems.length/perPage)" circle></v-pagination>
       </v-layout>
     </v-container>
   </div>
@@ -33,16 +45,55 @@ export default {
   data() {
     return {
       page: 1,
-      perPage: 6
+      perPage: 6,
+      search: "",
+      searchItem: [],
+      items: [
+        "Cost (Low to Higt)",
+        "Cost(High to Low)",
+        "Name(A-Z)",
+        "Name(Z-A)"
+      ]
     };
   },
   computed: {
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
+    },
     categoryAds() {
       const category = this.category;
       return this.$store.getters.categoryAds(category);
     },
-    visiblePages () {
-      return this.categoryAds.slice((this.page - 1)* this.perPage, this.page* this.perPage)
+    visiblePages() {
+      return this.filteredItems
+        .slice()
+        .reverse()
+        .slice((this.page - 1) * this.perPage, this.page * this.perPage);
+    },
+    filteredItems() {
+        return this.searchItem.filter((item) =>{
+            return item.title.toLowerCase().match(this.search.toLowerCase()) || item.description.toLowerCase().match(this.search.toLowerCase())
+        });
+    },
+    setected() {
+      return this.$route.query.sort || 0;
+    }
+  },
+  mounted() {
+      setTimeout(() => this.searchItem = this.categoryAds)
+  },
+  methods: {
+    select(index) {
+      if (index === 0) {
+        let query = Object.assign({}, this.$route.query);
+        delete query.sort;
+
+        this.$router.push({ query: query });
+      } else {
+        let query = Object.assign({}, this.$route.query);
+        query.sort = index;
+        this.$router.push({ query: query });
+      }
     }
   }
 };
