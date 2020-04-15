@@ -2,21 +2,14 @@
   <div>
     <v-container grid-list-lg>
       <h1>Категория {{category}}</h1>
-      <v-menu>
-        <template v-slot:activator="{ on }">
-          <v-btn color="primary" v-on="on" depressed>Сортировка</v-btn>
-        </template>
-        <v-list color="primary">
-          <v-list-item v-for="item in items" :key="item">
-            <v-btn @click="select(index)" depressed color="primary">{{item}}</v-btn>
-          </v-list-item>
-        </v-list>
-      </v-menu>
       <v-layout>
-        <v-col cols="4" sm="6" md="3">
+        <v-col cols="4" sm="4" md="4">
+          <v-select label="Сортировка" :items="items" v-model="sorting"></v-select>
+        </v-col>
+        <v-col cols="4" sm="4" md="4">
           <v-text-field prepend-inner-icon="mdi-lock" label="Regular" v-model="search"></v-text-field>
         </v-col>
-        <v-col cols="4" class="mt-3">
+        <v-col cols="4" md="4" class="mt-3">
           <v-range-slider
             v-model="range"
             step="100"
@@ -88,15 +81,16 @@ export default {
       perPage: 6,
       search: "",
       searchItem: [],
-      items: [
+      sorting: "По дате",
+      items: ["По дате",
         "Cost (Low to Higt)",
         "Cost(High to Low)",
         "Name(A-Z)",
         "Name(Z-A)"
       ],
       min: 0,
-      max: 1000000,
-      range: [0, 1000000]
+      max: 100000000,
+      range: [0, 100000000]
     };
   },
   computed: {
@@ -114,33 +108,46 @@ export default {
         .slice((this.page - 1) * this.perPage, this.page * this.perPage);
     },
     filteredItems() {
-      return this.categoryAds.filter(item => {
+      let filteredStates = this.categoryAds.filter(item => {
         return (
           (item.title.toLowerCase().match(this.search.toLowerCase()) ||
-          item.description.toLowerCase().match(this.search.toLowerCase())) &&
-          (item.price >= this.range[0] && item.price <= this.range[1])
+            item.description.toLowerCase().match(this.search.toLowerCase())) &&
+          item.price >= this.range[0] &&
+          item.price <= this.range[1]
         );
       });
-    },
-    filtersPrice() {
-      return this.categoryAds.filter(item => {
-        return item.price >= this.range[0] && item.price <= this.range[1];
-      });
-    }
-  },
-  methods: {
-    select(index) {
-      if (index === 0) {
-        let query = Object.assign({}, this.$route.query);
-        delete query.sort;
-
-        this.$router.push({ query: query });
-      } else {
-        let query = Object.assign({}, this.$route.query);
-        query.sort = index;
-        this.$router.push({ query: query });
+      if (this.sorting == "Cost(High to Low)") {
+        filteredStates = filteredStates.sort(
+          (prev, curr) => prev.price - curr.price
+        );
       }
-    }
-  }
+      if (this.sorting == "Cost (Low to Higt)") {
+        filteredStates = filteredStates.sort(
+          (prev, curr) => curr.price - prev.price
+        );
+      }
+      if (this.sorting == "Name(A-Z)") {
+        filteredStates = filteredStates.sort((a, b) => {
+          var nameA = a.title.toLowerCase(),
+            nameB = b.title.toLowerCase();
+          if (nameA < nameB)
+            return 1;
+          if (nameA > nameB) return -1;
+          return 0;
+        });
+      }
+      if (this.sorting == "Name(Z-A)") {
+        filteredStates = filteredStates.sort((a, b) => {
+          var nameA = a.title.toLowerCase(),
+            nameB = b.title.toLowerCase();
+          if (nameA < nameB)
+            return -1;
+          if (nameA > nameB) return 1;
+          return 0;
+        });
+      }
+      return filteredStates;
+    },
+  },
 };
 </script>
