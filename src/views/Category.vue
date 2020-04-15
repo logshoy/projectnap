@@ -12,11 +12,46 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-col cols="12" sm="6" md="3">
-        <v-text-field prepend-inner-icon="mdi-lock" label="Regular" v-model="search"></v-text-field>
-      </v-col>
+      <v-layout>
+        <v-col cols="4" sm="6" md="3">
+          <v-text-field prepend-inner-icon="mdi-lock" label="Regular" v-model="search"></v-text-field>
+        </v-col>
+        <v-col cols="4" class="mt-3">
+          <v-range-slider
+            v-model="range"
+            step="100"
+            :max="max"
+            :min="min"
+            hide-details
+            class="align-center"
+          >
+            <template v-slot:prepend>
+              <v-text-field
+                :value="range[0]"
+                class="mt-0 pt-0"
+                hide-details
+                single-line
+                type="number"
+                style="width: 60px"
+                @change="$set(range, 0, $event)"
+              ></v-text-field>
+            </template>
+            <template v-slot:append>
+              <v-text-field
+                :value="range[1]"
+                class="mt-0 pt-0"
+                hide-details
+                single-line
+                type="number"
+                style="width: 60px"
+                @change="$set(range, 1, $event)"
+              ></v-text-field>
+            </template>
+          </v-range-slider>
+        </v-col>
+      </v-layout>
       <v-layout row wrap>
-        <v-flex xs12 sm6 md4 v-for="ad of visiblePages" :key="ad.id">
+        <v-flex xs12 sm6 md4 v-for="ad of  visiblePages" :key="ad.id">
           <v-card>
             <v-img :src="ad.imageSrc" height="200px"></v-img>
             <v-card-title primary-title>
@@ -34,7 +69,12 @@
             </v-card-actions>
           </v-card>
         </v-flex>
-        <v-pagination :total-visible="5" v-model="page" :length="Math.ceil(this.filteredItems.length/perPage)" circle></v-pagination>
+        <v-pagination
+          :total-visible="5"
+          v-model="page"
+          :length="Math.ceil(this.filteredItems.length/perPage)"
+          circle
+        ></v-pagination>
       </v-layout>
     </v-container>
   </div>
@@ -53,7 +93,10 @@ export default {
         "Cost(High to Low)",
         "Name(A-Z)",
         "Name(Z-A)"
-      ]
+      ],
+      min: 0,
+      max: 1000000,
+      range: [0, 1000000]
     };
   },
   computed: {
@@ -71,16 +114,19 @@ export default {
         .slice((this.page - 1) * this.perPage, this.page * this.perPage);
     },
     filteredItems() {
-        return this.searchItem.filter((item) =>{
-            return item.title.toLowerCase().match(this.search.toLowerCase()) || item.description.toLowerCase().match(this.search.toLowerCase())
-        });
+      return this.categoryAds.filter(item => {
+        return (
+          (item.title.toLowerCase().match(this.search.toLowerCase()) ||
+          item.description.toLowerCase().match(this.search.toLowerCase())) &&
+          (item.price >= this.range[0] && item.price <= this.range[1])
+        );
+      });
     },
-    setected() {
-      return this.$route.query.sort || 0;
+    filtersPrice() {
+      return this.categoryAds.filter(item => {
+        return item.price >= this.range[0] && item.price <= this.range[1];
+      });
     }
-  },
-  mounted() {
-      setTimeout(() => this.searchItem = this.categoryAds)
   },
   methods: {
     select(index) {
