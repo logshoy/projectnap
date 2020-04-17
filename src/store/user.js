@@ -26,9 +26,11 @@ export default {
       commit('clearError')
       commit('setLoading', true)
       try {
+        const imageSrc = "https://firebasestorage.googleapis.com/v0/b/hookah69.appspot.com/o/users%2Fplaceholder.png?alt=media&token=eaa608f0-d002-4ffc-848b-4f4aa6fde1d1"
         const user = await fb.auth().createUserWithEmailAndPassword(email, password)
         await fb.database().ref(`/users/${user.user.uid}/info`).set({
-          nickname
+          nickname,
+          imageSrc
         })
         commit('setUser', new User(user.user.uid))
         commit('setLoading', false)

@@ -29,9 +29,6 @@ export default {
                     .database()
                     .ref(`/users/${uid}/info`)
                     .update(updateData)
-                await fb.database().ref(`/users/${uid}/info`).update({
-                    imageSrc
-                })
                 commit('setInfo', updateData)
             } catch (e) {
                 commit('setError', e)

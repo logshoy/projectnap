@@ -36,25 +36,27 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       nicknameRules: [v => !!v || "Nickname обязательный"],
-      name: "",
       image: null,
       imageSrc: ""
     };
   },
   computed: {
-    ...mapGetters(["info"])
+    nameS() {
+      return this.$store.getters.info.nickname
+    }
   },
   created() {
-    this.name = this.info.nickname;
+    this.name = this.nameS
   },
   methods: {
     ...mapActions(["updateInfo"]),
     async submitHandler() {
+          console.log(this.nameS)
       await this.updateInfo({
         nickname: this.name,
         image: this.image
