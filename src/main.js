@@ -11,12 +11,6 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.component('app-buy-modal', BuyModalComponent)
 Vue.component('add-to-cart', AddToCart)
 
-Vue.filter('reverse', function(value) {
-  // slice to make a copy of array, then reverse the copy
-  return value.slice().reverse();
-});
-
-
 Vue.config.productionTip = false
 
 new Vue({

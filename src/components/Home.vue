@@ -20,9 +20,10 @@
             <v-img :src="ad.imageSrc" height="200px"></v-img>
             <v-card-title primary-title>
               <div>
-                <h3 class="headline mb-0">{{ad.title}}</h3>
-                <div>{{ad.description}}</div>
-                <div>{{ad.price}}</div>
+                <h3 class="headline mb-0">Название:{{ad.title}}</h3>
+                <div>Описание{{ad.description}}</div>
+                <div>Цена:{{ad.price}} P</div>
+                <div>Рейтинг:{{ad.rating}}</div>
               </div>
             </v-card-title>
             <v-card-actions>

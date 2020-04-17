@@ -3,24 +3,25 @@
     <v-container fluid>
       <h2>Отравить отзыв</h2>
       <v-form v-model="valid" ref="form" validation class="text-center">
-        <v-text-field 
-        :rules="[v => !!v || 'Заголовок is required']" 
-          name="Title" label="Заголовок" type="text" v-model="title"></v-text-field>
-        <v-textarea :rules="[v => !!v || 'Текст is required']"
-          label="Text" v-model="text" outlined></v-textarea>
-        <v-rating 
-           v-model="rating" background-color="purple lighten-3" color="purple" size="64">
-        </v-rating>
-        <v-btn 
-        :disabled="!valid || !this.rating || loading"
-        :loading="loading"
-        @click="sendComment" 
-        class="error"
+        <v-text-field
+          :rules="[v => !!v || 'Заголовок is required']"
+          name="Title"
+          label="Заголовок"
+          type="text"
+          v-model="title"
+        ></v-text-field>
+        <v-textarea :rules="[v => !!v || 'Текст is required']" label="Text" v-model="text" outlined></v-textarea>
+        <v-rating v-model="rating" background-color="purple lighten-3" color="purple" size="64"></v-rating>
+        <v-btn
+          :disabled="!valid || !this.rating || loading"
+          :loading="loading"
+          @click="sendComment"
+          class="error"
         >Отправить</v-btn>
       </v-form>
       <h2>Отправленые отзывы</h2>
       <div v-if="loading" class="text-xs-center">
-          <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
+        <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
       </div>
       <div v-else-if="!loading && comments.length !== 0">
         <v-card v-for="item in comments.slice().reverse()" :key="item.key" class="mt-5 d-flex">

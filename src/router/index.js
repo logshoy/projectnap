@@ -30,6 +30,12 @@ export default new Router({
       component: () => import("@/views/Category.vue")
     },
     {
+      path: '/category',
+      props: true,
+      name: 'categoryAll',
+      component: () => import("@/views/CategoryAll.vue")
+    },
+    {
       path: '/list',
       name: 'list',
       component: AdList,
@@ -70,6 +76,11 @@ export default new Router({
       component: () => import("@/views/Profile.vue"),
       beforeRouteEnter: AuthGuard
     },
+    {
+      path: '*',
+      name: '404',
+      component: () => import("@/views/404.vue"),
+    }
   ],
   mode: 'history'
 })

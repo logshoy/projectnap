@@ -10,7 +10,7 @@ class Comment {
     }
 }
 class giveComment {
-    constructor(title, text, time, rating, uid, nickname,imageSrc) {
+    constructor(title, text, time, rating, uid, nickname, imageSrc) {
         this.title = title,
             this.text = text,
             this.time = time,
@@ -23,18 +23,14 @@ class giveComment {
 
 export default {
     state: {
-        comments: [],
-        ratingAd: ""
+        comments: []
     },
     mutations: {
         loadComments(state, payload) {
             state.comments = payload
         },
         destroyComments(state) {
-            state.comments = 0
-        },
-        ratingAd(state,payload) {
-            state.ratingAd = payload
+            state.comments = []
         }
     },
     actions: {
@@ -76,12 +72,11 @@ export default {
             commit('setLoading', true)
             commit('clearError')
             const resultComments = []
-            const ratingAd = []
 
             try {
                 const fbVal = await fb.database().ref(`/ads/${adId}/comments`).once('value')
                 const comments = fbVal.val()
-
+                console.log(comments)
                 const arr = Object.keys(comments)
                 for (const item of arr) {
                     const c = comments[item]
@@ -89,17 +84,13 @@ export default {
                         .database()
                         .ref(`/users/${c.uid}/info`)
                         .once('value')).val()
-                        ratingAd.push(c.rating)
-                        resultComments.push(
+                    console.log(info)
+                    resultComments.push(
                         new giveComment(c.title, c.text, c.time, c.rating, c.uid, info.nickname,
                             info.imageSrc)
                     )
                 }
-                const reducer = (accumulator, currentValue) => accumulator + currentValue;
-
-                console.log(ratingAd)
-                const Adrating = ratingAd.reduce(reducer)/ratingAd.length
-                commit('ratingAd', Adrating)
+                console.log(resultComments)
                 commit('loadComments', resultComments)
                 commit('setLoading', false)
             } catch (error) {
@@ -110,9 +101,6 @@ export default {
     getters: {
         comments(state) {
             return state.comments
-        },
-        ratingAd(state) {
-            return state.ratingAd
         }
     }
 }

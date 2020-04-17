@@ -1,7 +1,7 @@
 import * as fb from 'firebase'
 
 class Ad {
-  constructor(title, description, price, ownerId, imageSrc = '', category, promo = false, id = null) {
+  constructor(title, description, price, ownerId, imageSrc = '', category, promo = false, rating, id = null) {
     this.title = title
     this.description = description
     this.price = price
@@ -9,6 +9,7 @@ class Ad {
     this.imageSrc = imageSrc
     this.category = category
     this.promo = promo
+    this.rating = rating
     this.id = id
   }
 }
@@ -80,7 +81,9 @@ export default {
           ...newAd,
           id: ad.key,
           imageSrc,
-          category: { [keys]:true } 
+          category: {
+            [keys]: true
+          }
         })
       } catch (error) {
         commit('setError', error.message)
@@ -95,16 +98,27 @@ export default {
       commit('setLoading', true)
 
       const resultAds = []
+      const ratingAd = []
 
       try {
         const fbVal = await fb.database().ref('ads').once('value')
         const ads = fbVal.val()
-
         Object.keys(ads).forEach(key => {
           const ad = ads[key]
+          if (ad.comments) {
+            Object.keys(ad.comments).forEach(key => {
+              const comment = ad.comments[key]
+              ratingAd.push(comment.rating)
+            })
+            const reducer = (accumulator, currentValue) => accumulator + currentValue;
+            const Adrating = ratingAd.reduce(reducer) / ratingAd.length
+            resultAds.push(
+              new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, Adrating, key)
+            )
+          } else {
           resultAds.push(
-            new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, key)
-          )
+            new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, 0, key)
+          )}
         })
 
         commit('loadAds', resultAds)

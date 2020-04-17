@@ -8,8 +8,7 @@
             <h1 class="text--primary">{{ad.title}}</h1>
             <p>{{ad.description}}</p>
             <p>{{ad.price}}</p>
-            <h3>{{ratingAd}}</h3>
-            <p>{{ad.category}}</p>
+            <h3>{{ad.rating}}</h3>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -41,9 +40,6 @@ export default {
     },
     isUserLoggedIn() {
       return this.$store.getters.isUserLoggedIn;
-    },
-    ratingAd() {
-      return this.$store.getters.ratingAd
     }
   },
   components: {

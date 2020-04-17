@@ -1,10 +1,34 @@
 <template>
   <app id="app">
-    <v-app>
-      <v-card>
+    <v-app app>
+      <v-card flat height="100%">
         <v-navigation-drawer app temporary v-model="drawer">
           <v-list nav dense>
+            <v-list-item>
+              <v-list-item-avatar>
+                <img :src="avatar">
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>{{nickname}}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
             <v-list-item-group v-model="item" color="primary">
+              <v-list-item v-if="isUserLoggedIn" to="/category">
+                <v-list-item-icon>
+                  <v-icon>mdi-cart</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title >Каталог</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item v-if="isUserLoggedIn" to="/cart">
+                <v-list-item-icon>
+                  <v-icon>mdi-cart</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title >Корзина</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
               <v-list-item v-for="link of links" :key="link.title" :to="link.url">
                 <v-list-item-icon>
                   <v-icon v-text="link.icon"></v-icon>
@@ -32,11 +56,14 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items class="hidden-sm-and-down">
-            <v-menu>
+            <v-menu v-if="isUserLoggedIn">
               <template v-slot:activator="{ on }">
                 <v-btn color="primary" v-on="on" depressed>Категории</v-btn>
               </template>
               <v-list color="primary">
+                <v-list-item >
+                  <v-btn depressed to="/category" color="primary">Все категории</v-btn>
+                </v-list-item>
                 <v-list-item v-for="category in categoryList" :key="category">
                   <v-btn depressed :to="/category/+ category" color="primary">{{category}}</v-btn>
                 </v-list-item>
@@ -74,10 +101,11 @@
             </v-menu>
           </v-toolbar-items>
         </v-toolbar>
-        <v-content>
+        <v-content >
           <router-view></router-view>
         </v-content>
-        <v-footer app fixed color="primary" padless>
+      </v-card>
+      <v-footer  color="primary" padless>
       <v-row justify="center" no-gutters>
         <v-col class="primary py-4 text-center white--text" cols="12">
           {{ new Date().getFullYear() }} —
@@ -85,7 +113,6 @@
         </v-col>
       </v-row>
     </v-footer>
-      </v-card>
 
       <template v-if="error">
         <v-snackbar
