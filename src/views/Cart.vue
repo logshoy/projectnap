@@ -2,15 +2,23 @@
   <div>
     <v-container>
       <h4>Корзина</h4>
-      <v-layout class="mt-3" v-for="item in cart" :key="item.cartId">
-        <v-img width="120px" :src="item.cartImageSrc" />
+      <v-layout wrap class="mt-3" v-for="item in cart" :key="item.cartId">
+        <v-col cols="4" md="2">
+        <v-img width="150px" :src="item.cartImageSrc" />
+        </v-col>
+        <v-col cols="8" md="9">
         <v-card-text>
-          <h3>Название{{item.cartTitle}}</h3>
-          <p>Описание{{item.cartDescription}}</p>
-          <p>Цена:{{item.cartPrice}}</p>
-          <p>Кол-вл{{item.cartQuantity}}</p>
+          <h3>Название:{{item.cartTitle}}</h3>
+          <p>Описание:{{item.cartDescription}}</p>
+          <p>Цена:{{item.cartPrice}}P</p>
+          <p>Количество:{{item.cartQuantity}}</p>
         </v-card-text>
-        <v-btn @click="removeFromCart">Удалить</v-btn>
+        </v-col>
+        <v-col cols="12" md="1">
+        <v-btn 
+        @click="$store.dispatch('removeFromCart', item)"
+        >Удалить</v-btn>
+        </v-col>
       </v-layout>
       Total Price : {{ totalPrice }}
     </v-container>
@@ -27,11 +35,6 @@ export default {
       return this.$store.getters.totalPrice;
     }
   },
-  methods: {
-    removeFromCart() {
-      this.$store.dispatch("removeFromCart", this.item);
-    }
-  }
 };
 </script>
 

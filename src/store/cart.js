@@ -22,6 +22,7 @@ export default {
         removeFromCart(state, item) {
 
             let index = state.cart.indexOf(item);
+            console.log(item)
             state.cart.splice(index, 1);
 
             this.commit('saveData');
@@ -41,10 +42,10 @@ export default {
         removeFromCart({
             commit
         }, item) {
+            console.log(item)
             commit('removeFromCart', item)
         },
         clearCart({commit}) {
-            console.log('sss');
             localStorage.clear();
             commit('clearCart');
         }

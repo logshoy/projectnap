@@ -113,7 +113,7 @@ export default {
             const reducer = (accumulator, currentValue) => accumulator + currentValue;
             const Adrating = ratingAd.reduce(reducer) / ratingAd.length
             resultAds.push(
-              new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, Adrating, key)
+              new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, Adrating.toFixed(3), key)
             )
           } else {
           resultAds.push(

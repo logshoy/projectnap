@@ -4,14 +4,20 @@
       <h2>Отравить отзыв</h2>
       <v-form v-model="valid" ref="form" validation class="text-center">
         <v-text-field
-          :rules="[v => !!v || 'Заголовок is required']"
+          :rules="titleRules"
           name="Title"
           label="Заголовок"
           type="text"
           v-model="title"
         ></v-text-field>
-        <v-textarea :rules="[v => !!v || 'Текст is required']" label="Text" v-model="text" outlined></v-textarea>
-        <v-rating v-model="rating" background-color="purple lighten-3" color="purple" size="64"></v-rating>
+        <v-textarea :rules="descriptionRules" label="Text" v-model="text" outlined></v-textarea>
+        <v-rating
+          v-model="rating"
+          value
+          background-color="purple lighten-3"
+          color="purple"
+          size="64"
+        ></v-rating>
         <v-btn
           :disabled="!valid || !this.rating || loading"
           :loading="loading"
@@ -24,29 +30,36 @@
         <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
       </div>
       <div v-else-if="!loading && comments.length !== 0">
-        <v-card v-for="item in comments.slice().reverse()" :key="item.key" class="mt-5 d-flex">
-          <v-col md="2">
-            <v-avatar class="mt-4" size="76px">
-              <img :src="item.imageSrc" />
-            </v-avatar>
-            <div>{{item.nickname}}</div>
-          </v-col>
-          <v-col md="10">
-            <v-row>
-              <v-card-title>
+        <v-card v-for="item in comments.slice().reverse()" :key="item.key" class="mt-5">
+          <v-layout >
+            <v-col class="d-flex flex-column align-center pa-0" cols="4" sm="2">
+              <v-avatar class="mt-4" :size="70">
+                <img :src="item.imageSrc" />
+              </v-avatar>
+              <div>{{item.nickname}}</div>
+            </v-col>
+            <v-col class=" d-flex align-center pa-0" cols="8" sm="10">
+              <v-card-title class="pa-0">
                 <h3>{{item.title}}</h3>
               </v-card-title>
-              <v-spacer></v-spacer>
-              <span style="display: flex; align-items:center; margin-right:10px">{{item.time}}</span>
-            </v-row>
-            <v-card-text>{{item.text}}</v-card-text>
-            <v-row>
-              <div class="d-flex" v-for="i in item.rating" :key="i">
+            </v-col>
+          </v-layout>
+          <v-layout >
+            <v-spacer></v-spacer>
+            <v-col class="pa-0" cols="12" sm="10">
+              <v-card-text class="py-0 px-3">{{item.text}}</v-card-text>
+            </v-col>
+          </v-layout>
+          <v-layout>
+          <v-spacer></v-spacer>
+          <v-col cols="12" sm="10">
+            <v-row class="px-3">
+              <div v-for="i in item.rating" :key="i">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  height="64px"
-                  width="64px"
+                  height="35px"
+                  width="35px"
                   role="img"
                   aria-hidden="true"
                 >
@@ -58,6 +71,13 @@
               </div>
             </v-row>
           </v-col>
+          </v-layout>
+          <v-layout>
+          <v-spacer></v-spacer>
+          <v-col  class="py-0 mb-3" cols="12" sm="10">
+            {{item.time}}
+            </v-col>
+          </v-layout>
         </v-card>
       </div>
       <v-flex xs12 class="text-xs-center" v-else>
@@ -76,7 +96,19 @@ export default {
       title: "",
       text: "",
       now: new Date(),
-      rating: ""
+      rating: "",
+      titleRules: [
+        v => !!v || "Заголовок is required",
+        v =>
+          (v && v.length <= 50) ||
+          "Заголовок должен быть меньше чем 50 символов"
+      ],
+      descriptionRules: [
+        v => !!v || "Заголовок is required",
+        v =>
+          (v && v.length <= 200) ||
+          "Заголовок должен быть меньше чем 200 символов"
+      ]
     };
   },
   computed: {
@@ -95,19 +127,14 @@ export default {
   },
   methods: {
     sendComment() {
-      this.$store
-        .dispatch("createComments", {
-          title: this.title,
-          text: this.text,
-          adId: this.id,
-          time: this.now,
-          rating: this.rating
-        })
-        .finally(() => {
-          this.title = "";
-          this.text = "";
-          this.rating = "";
-        });
+      this.$store.dispatch("createComments", {
+        title: this.title,
+        text: this.text,
+        adId: this.id,
+        time: this.now,
+        rating: this.rating
+      });
+      this.$refs.form.reset();
       this.$store.dispatch("fetchComments", { adId: this.id });
     }
   }

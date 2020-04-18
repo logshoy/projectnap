@@ -21,11 +21,11 @@
                   <p>Цена:{{item.cartPrice}}</p>
                   <p>Кол-вл{{item.cartQuantity}}</p>
                 </v-card-text>
-                <v-btn @click="removeFromCart">Удалить</v-btn>
+                <v-btn @click="$store.dispatch('removeFromCart', item)">Удалить</v-btn>
             </v-layout>
-            <v-layout>
+            <v-layout class="mt-3">
               <v-spacer></v-spacer>
-              <v-btn class="mr-3">Продолжить покупки</v-btn>
+              <v-btn class="mr-3" @click="modal = false">Продолжить покупки</v-btn>
               <v-btn to="/cart">В корзину</v-btn>
             </v-layout>
           </v-flex>
@@ -61,10 +61,6 @@ export default {
       };
       this.$store.dispatch("addToCart", item);
     },
-    removeFromCart() {
-      this.$store.dispatch("removeFromCart", this.item)
-    }
-
   }
 };
 </script>

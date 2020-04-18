@@ -6,10 +6,10 @@
           <v-list nav dense>
             <v-list-item>
               <v-list-item-avatar>
-                <img :src="avatar">
+                <img :src="avatar" />
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title>{{nickname}}</v-list-item-title>
+                <v-list-item-title>{{ nickname }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
             <v-list-item-group v-model="item" color="primary">
@@ -18,7 +18,7 @@
                   <v-icon>mdi-cart</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title >Каталог</v-list-item-title>
+                  <v-list-item-title>Каталог</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item v-if="isUserLoggedIn" to="/cart">
@@ -26,10 +26,14 @@
                   <v-icon>mdi-cart</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title >Корзина</v-list-item-title>
+                  <v-list-item-title>Корзина</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item v-for="link of links" :key="link.title" :to="link.url">
+              <v-list-item
+                v-for="link of links"
+                :key="link.title"
+                :to="link.url"
+              >
                 <v-list-item-icon>
                   <v-icon v-text="link.icon"></v-icon>
                 </v-list-item-icon>
@@ -49,10 +53,17 @@
           </v-list>
         </v-navigation-drawer>
 
-        <v-toolbar row dense dark color="primary">
-          <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar row dense color="primary">
+          <v-app-bar-nav-icon
+            class="hidden-md-and-up"
+            @click.stop="drawer = !drawer"
+          ></v-app-bar-nav-icon>
           <v-toolbar-title>
-            <router-link to="/" tag="span" class="pointer">Hookah69</router-link>
+            <router-link to="/" tag="span" class="d-flex text-white pointer">
+              Hookah
+              <div class="blue-text">6</div>
+              <div class="pink-text">9</div>
+            </router-link>
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items class="hidden-sm-and-down">
@@ -61,21 +72,34 @@
                 <v-btn color="primary" v-on="on" depressed>Категории</v-btn>
               </template>
               <v-list color="primary">
-                <v-list-item >
-                  <v-btn depressed to="/category" color="primary">Все категории</v-btn>
+                <v-list-item>
+                  <v-btn depressed to="/category" color="primary"
+                    >Все категории</v-btn
+                  >
                 </v-list-item>
                 <v-list-item v-for="category in categoryList" :key="category">
-                  <v-btn depressed :to="/category/+ category" color="primary">{{category}}</v-btn>
+                  <v-btn
+                    depressed
+                    :to="/category/ + category"
+                    color="primary"
+                    >{{ category }}</v-btn
+                  >
                 </v-list-item>
               </v-list>
             </v-menu>
-            <v-btn depressed color="primary" v-for="link in links" :key="link.title" :to="link.url">
+            <v-btn
+              depressed
+              color="primary"
+              v-for="link in links"
+              :key="link.title"
+              :to="link.url"
+            >
               <v-icon v-text="link.icon" left></v-icon>
               {{ link.title }}
             </v-btn>
             <v-btn depressed color="primary" to="/cart" v-if="isUserLoggedIn">
               <v-badge offset-y="10" left color="warning">
-                <span class="mt-3" slot="badge">{{totalQuantity}}</span>
+                <span class="mt-3" slot="badge">{{ totalQuantity }}</span>
                 <v-icon left>mdi-cart</v-icon>Корзина
               </v-badge>
             </v-btn>
@@ -93,7 +117,12 @@
                   <v-btn depressed color="primary" to="/profile">Профиль</v-btn>
                 </v-list-item>
                 <v-list-item>
-                  <v-btn depressed color="primary" @click="onLogout" v-if="isUserLoggedIn">
+                  <v-btn
+                    depressed
+                    color="primary"
+                    @click="onLogout"
+                    v-if="isUserLoggedIn"
+                  >
                     <v-icon left>mdi-logout</v-icon>Выйти
                   </v-btn>
                 </v-list-item>
@@ -101,18 +130,78 @@
             </v-menu>
           </v-toolbar-items>
         </v-toolbar>
-        <v-content >
+        <v-content>
           <router-view></router-view>
         </v-content>
       </v-card>
-      <v-footer  color="primary" padless>
-      <v-row justify="center" no-gutters>
-        <v-col class="primary py-4 text-center white--text" cols="12">
-          {{ new Date().getFullYear() }} —
-          <strong>Vuetify</strong>
-        </v-col>
-      </v-row>
-    </v-footer>
+      <v-footer dark padless>
+        <v-card color="primary" class="px-9 pb-3 flex">
+          <v-card-title class="flex justify-space-between primary py-3">
+            <router-link to="/" tag="span" class="d-flex pointer">
+              Hookah
+              <div class="blue-text">6</div>
+              <div class="pink-text">9</div>
+            </router-link>
+            <div>
+              <a href="https://github.com/logshoy/">
+                <v-btn class="primary" text>
+                  <v-icon>mdi-github</v-icon>
+                </v-btn>
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UCd84loKaOq6qmXUnr2Rd24g?view_as=subscriber"
+              >
+                <v-btn class="primary" text>
+                  <v-icon>mdi-youtube</v-icon>
+                </v-btn>
+              </a>
+            </div>
+            <div>
+              {{ new Date().getFullYear() }} —
+              <strong>Vuetify</strong>
+            </div>
+          </v-card-title>
+          <row class="d-flex justify-space-between">
+            <v-list class="d-flex align-start flex-column primary">
+              <v-btn
+                class="primary"
+                text
+                v-for="item in categoryList"
+                :key="item"
+                :to="/category/ + item"
+                >{{ item }}</v-btn
+              >
+            </v-list>
+            <v-list class="primary">
+              <v-list-item
+                v-for="link of links"
+                :key="link.title"
+                :to="link.url"
+              >
+                <v-list-item-icon>
+                  <v-icon v-text="link.icon"></v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="link.title"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item to="/cart" v-if="isUserLoggedIn">
+                <v-list-item-icon>
+                  <v-icon left>mdi-cart</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>Корзина</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <div>
+              Часы работы:
+              <br />Круглосуточно
+            </div>
+          </row>
+          <row class="d-flex justify-center">© 2020. ВСЕ ПРАВА ЗАЩИЩЕНЫ</row>
+        </v-card>
+      </v-footer>
 
       <template v-if="error">
         <v-snackbar
@@ -131,65 +220,74 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      drawer: false
-    };
-  },
-  computed: {
-    error() {
-      return this.$store.getters.error;
+  export default {
+    data() {
+      return {
+        drawer: false,
+      };
     },
-    isUserLoggedIn() {
-      return this.$store.getters.isUserLoggedIn;
-    },
-    links() {
-      if (this.isUserLoggedIn) {
-        return [
-          { title: "Заказы", icon: "mdi-star", url: "/orders" },
-          { title: "Добавить", icon: "mdi-history", url: "/new" },
-          { title: "Мои товары", icon: "mdi-check-circle", url: "/list" }
-        ];
-      }
-
-      return [
-        { title: "Авторизация", icon: "mdi-folder", url: "/login" },
-        {
-          title: "Регистрация",
-          icon: "mdi-account-multiple",
-          url: "/registration"
+    computed: {
+      error() {
+        return this.$store.getters.error;
+      },
+      isUserLoggedIn() {
+        return this.$store.getters.isUserLoggedIn;
+      },
+      links() {
+        if (this.isUserLoggedIn) {
+          return [
+            { title: "Заказы", icon: "mdi-star", url: "/orders" },
+            { title: "Добавить", icon: "mdi-history", url: "/new" },
+            { title: "Мои товары", icon: "mdi-check-circle", url: "/list" },
+          ];
         }
-      ];
+
+        return [
+          { title: "Авторизация", icon: "mdi-folder", url: "/login" },
+          {
+            title: "Регистрация",
+            icon: "mdi-account-multiple",
+            url: "/registration",
+          },
+        ];
+      },
+      totalQuantity() {
+        return this.$store.getters.totalQuantity;
+      },
+      nickname() {
+        return this.$store.getters.info.nickname;
+      },
+      avatar() {
+        return this.$store.getters.info.imageSrc;
+      },
+      categoryList() {
+        return this.$store.getters.category;
+      },
     },
-    totalQuantity() {
-      return this.$store.getters.totalQuantity;
+    methods: {
+      closeError() {
+        this.$store.dispatch("clearError");
+      },
+      onLogout() {
+        this.$store.dispatch("logoutUser");
+        this.$router.push("/");
+        this.$store.dispatch("clearCart");
+      },
     },
-    nickname() {
-      return this.$store.getters.info.nickname;
-    },
-    avatar() {
-      return this.$store.getters.info.imageSrc;
-    },
-    categoryList() {
-      return this.$store.getters.category;
-    }
-  },
-  methods: {
-    closeError() {
-      this.$store.dispatch("clearError");
-    },
-    onLogout() {
-      this.$store.dispatch("logoutUser");
-      this.$router.push("/");
-      this.$store.dispatch("clearCart");
-    }
-  }
-};
+  };
 </script>
 
 <style scoped>
-.pointer {
-  cursor: pointer;
-}
+  .pointer {
+    cursor: pointer;
+    color: white;
+    font-size: 30px;
+  }
+
+  .blue-text {
+    color: blue;
+  }
+  .pink-text {
+    color: purple;
+  }
 </style>

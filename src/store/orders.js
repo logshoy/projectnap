@@ -62,7 +62,6 @@ export default {
         commit('setLoading', false)
       } catch (error) {
         commit('setLoading', false)
-        commit('setError', error.message)
       }
     },
     async markOrderDone({

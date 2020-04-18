@@ -7,34 +7,55 @@ export default {
     mutations: {
         setInfo(state, info) {
             state.info = info
+        },
+        setAvatar(state, avatar) {
+            state.info.imageSrc = avatar
         }
     },
     actions: {
-        async updateInfo({
-            commit
-        }, {
-            nickname,
-            image
-        }) {
+        async changeAvatar({
+            commit,
+            getters
+        }, payload) {
             try {
-                const uid = await this.getters.user.id
-                const imageExt = image.name.slice(image.name.lastIndexOf('.'))
-                const fileData = await fb.storage().ref(`users/${uid}.${imageExt}`).put(image)
+                console.log(payload.name)
+                const uid = await getters.user.id
+                const imageExt = payload.name.slice(payload.name.lastIndexOf('.'))
+                console.log(imageExt)
+                const fileData = await fb.storage().ref(`users/${uid}.${imageExt}`).put(payload)
+                console.log(fileData)
                 const imageSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
-                const updateData = {
-                    nickname,
-                    imageSrc
-                }
+                console.log(imageSrc)
                 await fb
                     .database()
                     .ref(`/users/${uid}/info`)
-                    .update(updateData)
-                commit('setInfo', updateData)
+                    .update({imageSrc})
+                commit('setAvatar', imageSrc)
             } catch (e) {
                 commit('setError', e)
                 throw e
             }
         },
+        async updateInfo({
+            commit,
+            getters
+          }, toUpdate) {
+            try {
+              const uid = await getters.user.id
+              const updateData = {
+                ...getters.info,
+                ...toUpdate
+              }
+              await fb
+                .database()
+                .ref(`/users/${uid}/info`)
+                .update(updateData)
+              commit('setInfo', updateData)
+            } catch (e) {
+              commit('setError', e)
+              throw e
+            }
+          },
         async fetchInfo({
             commit
         }, uid) {
