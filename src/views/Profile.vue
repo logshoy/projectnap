@@ -65,17 +65,16 @@ export default {
   },
   computed: {
     nameS() {
-      return this.$store.getters.info.nickname;
+      return this.$store.getters.info;
     }
   },
   mounted() {
-    this.name = this.nameS;
-    this.isRuLocale = this.info.locale === "ru-RU";
+    this.name = this.nameS.nickname;
+    this.isRuLocale = this.nameS.locale === "ru-RU";
   },
   methods: {
     ...mapActions(["updateInfo"]),
     async submitHandler() {
-      console.log(this.isRuLocale);
       await this.updateInfo({
         nickname: this.name,
         locale: this.isRuLocale ? "ru-RU" : "en-US"

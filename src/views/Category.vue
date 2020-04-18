@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-container grid-list-lg>
-      <h1>Категория {{category}}</h1>
+      <h1>{{'Category' | localize}} {{category}}</h1>
       <v-layout>
         <v-col cols="4" sm="4" md="4">
-          <v-select label="Сортировка" :items="items" v-model="sorting"></v-select>
+          <v-select :label="'Sorting' | localize" :items="items" v-model="sorting"></v-select>
         </v-col>
         <v-col cols="4" sm="4" md="4">
-          <v-text-field prepend-inner-icon="mdi-lock" label="Regular" v-model="search"></v-text-field>
+          <v-text-field prepend-inner-icon="mdi-lock" :label="'Search'| localize" v-model="search"></v-text-field>
         </v-col>
         <v-col cols="4" md="4" class="mt-3">
           <v-range-slider
@@ -56,7 +56,7 @@
             </v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn :to="'/ad/' + ad.id" class="mr-3">Открыть</v-btn>
+              <v-btn :to="'/ad/' + ad.id" class="mr-3">{{'Open' | localize}}</v-btn>
               <add-to-cart v-if="isUserLoggedIn" :ad="ad"></add-to-cart>
               <app-buy-modal :ad="ad"></app-buy-modal>
             </v-card-actions>

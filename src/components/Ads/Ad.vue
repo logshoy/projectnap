@@ -5,10 +5,10 @@
         <v-card v-if="!loading">
           <v-img :src="ad.imageSrc" height="300px"></v-img>
           <v-card-text>
-            <h1 class="text--primary">{{ad.title}}</h1>
-            <p>{{ad.description}}</p>
-            <p>{{ad.price}}</p>
-            <h3>{{ad.rating}}</h3>
+            <h1 class="text--primary">{{ ad.title }}</h1>
+            <p>{{ ad.description }}</p>
+            <p>{{ ad.price }}</p>
+            <h3>{{ ad.rating }}</h3>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -17,7 +17,12 @@
           </v-card-actions>
         </v-card>
         <div v-else class="text-xs-center">
-          <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            :size="100"
+            :width="4"
+            color="purple"
+          ></v-progress-circular>
         </div>
       </v-flex>
     </v-layout>
@@ -26,24 +31,24 @@
 </template>
 
 <script>
-import Comments from "./Comments.vue";
+  import Comments from "./Comments.vue";
 
-export default {
-  props: ["id"],
-  computed: {
-    ad() {
-      const id = this.id;
-      return this.$store.getters.adById(id);
+  export default {
+    props: ["id"],
+    computed: {
+      ad() {
+        const id = this.id;
+        return this.$store.getters.adById(id);
+      },
+      loading() {
+        return this.$store.getters.loading;
+      },
+      isUserLoggedIn() {
+        return this.$store.getters.isUserLoggedIn;
+      },
     },
-    loading() {
-      return this.$store.getters.loading;
+    components: {
+      Comments,
     },
-    isUserLoggedIn() {
-      return this.$store.getters.isUserLoggedIn;
-    }
-  },
-  components: {
-    Comments,
-  },
-};
+  };
 </script>

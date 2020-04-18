@@ -1,14 +1,14 @@
 <template>
   <v-dialog width="400px" v-model="modal">
     <template v-slot:activator="{ on }">
-      <v-btn class="warning mr-3" v-on="on">Изменить</v-btn>
+      <v-btn class="warning mr-3" v-on="on">{{'Change' | localize}}</v-btn>
     </template>
     <v-card>
       <v-container>
         <v-layout row>
           <v-flex xs12>
             <v-card-title>
-              <h1 class="text--primary">Изменить товар</h1>
+              <h1 class="text--primary">{{'ChangeAd' | localize}}</h1>
             </v-card-title>
           </v-flex>
         </v-layout>
@@ -16,17 +16,17 @@
         <v-layout row>
           <v-flex xs12>
             <v-card-text>
-              <v-text-field name="title" label="Title" type="text" v-model="editedTitle"></v-text-field>
+              <v-text-field name="title" :label="'Change' | localize" type="text" v-model="editedTitle"></v-text-field>
               <v-text-field
                 name="description"
-                label="Description"
+                :label="'Description' | localize"
                 type="text"
                 multi-line
                 v-model="editedDescription"
               ></v-text-field>
               <v-text-field
                 name="price"
-                label="Цена"
+                :label="'Price' | localize"
                 type="number"
                 v-model="editedPrice"
               ></v-text-field>
@@ -38,8 +38,8 @@
           <v-flex xs12>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn text @click="onCancel">Закрыть</v-btn>
-              <v-btn class="success" text @click="onSave">Сохранить</v-btn>
+              <v-btn text @click="onCancel">{{'Close' | localize}}</v-btn>
+              <v-btn class="success" text @click="onSave">{{'Save' | localize}}</v-btn>
             </v-card-actions>
           </v-flex>
         </v-layout>

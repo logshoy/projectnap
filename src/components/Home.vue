@@ -20,15 +20,15 @@
             <v-img :src="ad.imageSrc" height="200px"></v-img>
             <v-card-title primary-title>
               <div>
-                <h3 class="headline mb-0">Название:{{ad.title}}</h3>
-                <div>Описание{{ad.description}}</div>
-                <div>Цена:{{ad.price}} P</div>
-                <div>Рейтинг:{{ad.rating}}</div>
+                <h3 class="headline mb-0">{{'Title' | localize}}:{{ad.title}}</h3>
+                <div>{{'Descriprion' | localize}}:{{ad.description}}</div>
+                <div>{{'Price' | localize}}:{{ad.price}} P</div>
+                <div>{{'Rating' | localize}}:{{ad.rating}}</div>
               </div>
             </v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn :to="'/ad/' + ad.id" class="mr-3">Открыть</v-btn>
+              <v-btn :to="'/ad/' + ad.id" class="mr-3">{{'Open' | localize}}</v-btn>
               <add-to-cart v-if="isUserLoggedIn" :ad="ad"></add-to-cart>
               <app-buy-modal :ad="ad"></app-buy-modal>
             </v-card-actions>

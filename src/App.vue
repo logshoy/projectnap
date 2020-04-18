@@ -18,7 +18,7 @@
                   <v-icon>mdi-cart</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>Каталог</v-list-item-title>
+                  <v-list-item-title>{{'Catalog' | localize}}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item v-if="isUserLoggedIn" to="/cart">
@@ -26,7 +26,7 @@
                   <v-icon>mdi-cart</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>Корзина</v-list-item-title>
+                  <v-list-item-title>{{'Basket' | localize}}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item
@@ -46,7 +46,7 @@
                   <v-icon>mdi-logout</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>Выйти</v-list-item-title>
+                  <v-list-item-title>{{'Basket' | localize}}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
@@ -69,12 +69,12 @@
           <v-toolbar-items class="hidden-sm-and-down">
             <v-menu v-if="isUserLoggedIn">
               <template v-slot:activator="{ on }">
-                <v-btn color="primary" v-on="on" depressed>Категории</v-btn>
+                <v-btn color="primary" v-on="on" depressed>{{'Catalog' | localize}}</v-btn>
               </template>
               <v-list color="primary">
                 <v-list-item>
                   <v-btn depressed to="/category" color="primary"
-                    >Все категории</v-btn
+                    >{{'AllCategory' | localize}}</v-btn
                   >
                 </v-list-item>
                 <v-list-item v-for="category in categoryList" :key="category">
@@ -100,7 +100,7 @@
             <v-btn depressed color="primary" to="/cart" v-if="isUserLoggedIn">
               <v-badge offset-y="10" left color="warning">
                 <span class="mt-3" slot="badge">{{ totalQuantity }}</span>
-                <v-icon left>mdi-cart</v-icon>Корзина
+                <v-icon left>mdi-cart</v-icon>{{'Basket' | localize}}
               </v-badge>
             </v-btn>
             <v-menu v-if="isUserLoggedIn" depressed>
@@ -114,7 +114,7 @@
               </template>
               <v-list color="primary">
                 <v-list-item>
-                  <v-btn depressed color="primary" to="/profile">Профиль</v-btn>
+                  <v-btn depressed color="primary" to="/profile">{{'ProfileTitle' | localize}}</v-btn>
                 </v-list-item>
                 <v-list-item>
                   <v-btn
@@ -123,7 +123,7 @@
                     @click="onLogout"
                     v-if="isUserLoggedIn"
                   >
-                    <v-icon left>mdi-logout</v-icon>Выйти
+                    <v-icon left>mdi-logout</v-icon>{{'Logout' | localize}}
                   </v-btn>
                 </v-list-item>
               </v-list>

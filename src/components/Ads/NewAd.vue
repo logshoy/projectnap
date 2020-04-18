@@ -2,11 +2,11 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h1 class="text--secondary mb-3">Добавить товар</h1>
+        <h1 class="text--secondary mb-3">{{'AddAd' |localize}}</h1>
         <v-form v-model="valid" ref="form" validation class="mb-3">
           <v-text-field
             name="title"
-            label="Добавить название"
+            :label="'Title' |localize"
             type="text"
             v-model="title"
             required
@@ -14,7 +14,7 @@
           ></v-text-field>
           <v-text-field
             name="description"
-            label="Добавить описание"
+            :label="'Description' |localize"
             type="text"
             v-model="description"
             multi-line
@@ -22,14 +22,14 @@
           ></v-text-field>
           <v-text-field
             name="price"
-            label="Добавить цену"
+            :label="'Price' |localize"
             type="number"
             v-model="price"
             multi-line
             :rules="[v => !!v || 'Price is required']"
           ></v-text-field>
           <v-select
-            label="Добавить категорию"
+            :label="'Category' |localize"
             :items="categoryList"
             v-model="category"
             :rules="[v => !!v || 'Category is required']"
@@ -38,7 +38,7 @@
         <v-layout row class="mb-3">
           <v-flex xs12>
             <v-btn class="warning" @click="triggerUpload">
-              Изображение
+              {{'Image' |localize}}
               <v-icon right dark>mdi-image</v-icon>
             </v-btn>
             <input
@@ -57,7 +57,7 @@
         </v-layout>
         <v-layout row>
           <v-flex xs12>
-            <v-switch label="Добавить в промо?" v-model="promo" color="primary"></v-switch>
+            <v-switch :label="'AddToPromo' | localize" v-model="promo" color="primary"></v-switch>
           </v-flex>
         </v-layout>
         <v-layout row>
@@ -68,7 +68,7 @@
               :disabled="!valid || !image || loading"
               class="success"
               @click="createAd"
-            >Добавить товар</v-btn>
+            >{{'AdAdd' | localize}}</v-btn>
           </v-flex>
         </v-layout>
       </v-flex>

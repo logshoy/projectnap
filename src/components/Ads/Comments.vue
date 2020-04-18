@@ -6,11 +6,11 @@
         <v-text-field
           :rules="titleRules"
           name="Title"
-          label="Заголовок"
+          :label="'Title' | localize "
           type="text"
           v-model="title"
         ></v-text-field>
-        <v-textarea :rules="descriptionRules" label="Text" v-model="text" outlined></v-textarea>
+        <v-textarea :rules="descriptionRules" :label="'Title' | localize" v-model="text" outlined></v-textarea>
         <v-rating
           v-model="rating"
           value
@@ -23,9 +23,9 @@
           :loading="loading"
           @click="sendComment"
           class="error"
-        >Отправить</v-btn>
+        >{{ "Send" | localize}}</v-btn>
       </v-form>
-      <h2>Отправленые отзывы</h2>
+      <h2>{{ "SendRev" | localize}}</h2>
       <div v-if="loading" class="text-xs-center">
         <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
       </div>
@@ -81,7 +81,7 @@
         </v-card>
       </div>
       <v-flex xs12 class="text-xs-center" v-else>
-        <h1 class="text--secondary">Нет комментариев, станьте первым!</h1>
+        <h1 class="text--secondary">{{"FirstComments" | localize}}</h1>
       </v-flex>
     </v-container>
   </div>

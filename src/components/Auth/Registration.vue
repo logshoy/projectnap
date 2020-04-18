@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md6>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Регистрация</v-toolbar-title>
+            <v-toolbar-title>{{'Registration' | localize}}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form v-model="valid" ref="form" lazy-validation>
@@ -19,7 +19,7 @@
               <v-text-field
                 prepend-icon="mdi-lock"
                 name="password"
-                label="Пароль"
+                :label="'Password' | localize"
                 type="password"
                 :counter="6"
                 v-model="password"
@@ -28,7 +28,7 @@
               <v-text-field
                 prepend-icon="mdi-lock"
                 name="Confirm Password"
-                label="Подтверждение пароля"
+                :label="'ConfirmPassword' | localize"
                 type="password"
                 :counter="6"
                 v-model="confirmPassword"
@@ -51,7 +51,7 @@
               @click="onSubmit"
               :loading="loading"
               :disabled="!valid || loading"
-              >Создать аккаунт</v-btn
+              >{{'CreateAcc' | localize}}</v-btn
             >
           </v-card-actions>
         </v-card>
@@ -81,7 +81,7 @@
             (v && v.length >= 6) || "Пароль должен быть больше чем 6 символов",
         ],
         confirmPasswordRules: [
-          (v) => !!v || "PПароль обязательный",
+          (v) => !!v || "Пароль обязательный",
           (v) => v === this.password || "Пароль не совпадает",
         ],
         nicknameRules: [(v) => !!v || "Nickname обязательный"],

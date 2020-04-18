@@ -1,14 +1,14 @@
 <template>
   <v-dialog width="500px" v-model="modal">
     <template v-slot:activator="{ on }">
-      <v-btn class="primary" v-on="on">Buy</v-btn>
+      <v-btn class="primary" v-on="on">{{'Buy' | localize}}</v-btn>
     </template>
     <v-card>
       <v-container>
         <v-layout row>
           <v-flex xs12>
             <v-card-title>
-              <h1 class="text--primary">Do you wan't to buy it?</h1>
+              <h1 class="text--primary">{{'ButIT' | localize}}</h1>
             </v-card-title>
           </v-flex>
         </v-layout>
@@ -18,13 +18,13 @@
             <v-card-text>
               <v-text-field
                 name="name"
-                label="Your name"
+                :label="'YourName' | localize"
                 type="text"
                 v-model="name"
               ></v-text-field>
               <v-text-field
                 name="phone"
-                label="Your phone"
+                :label="'YourPhone' | localize"
                 type="text"
                 v-model="phone"
               ></v-text-field>
@@ -37,7 +37,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn text @click="onCancel" :disabled="localLoading"
-                >Close</v-btn
+                >{{'Close' | localize}}</v-btn
               >
               <v-btn
                 class="success"
@@ -45,7 +45,7 @@
                 @click="onSave"
                 :disabled="localLoading"
                 :loading="localLoading"
-                >Buy it!</v-btn
+                >{{'Buy' | localize}}!</v-btn
               >
             </v-card-actions>
           </v-flex>

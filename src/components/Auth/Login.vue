@@ -4,14 +4,14 @@
       <v-flex xs12 sm8 md6>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Авторизация</v-toolbar-title>
+            <v-toolbar-title>{{'Login' | localize}}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form v-model="valid" ref="form" validation>
               <v-text-field
                 prepend-icon="mdi-account"
                 name="email"
-                label="Email"
+                label="E-mail"
                 type="email"
                 v-model="email"
                 :rules="emailRules"
@@ -19,7 +19,7 @@
               <v-text-field
                 prepend-icon="mdi-lock"
                 name="password"
-                label="Пароль"
+                :label="'Catalog' | localize"
                 type="password"
                 :counter="6"
                 v-model="password"
@@ -35,7 +35,7 @@
               :loading="loading"
               :disabled="!valid || loading"
             >
-              Войти
+             {{'Login' | localize}}
             </v-btn>
           </v-card-actions>
         </v-card>
