@@ -45,6 +45,11 @@
 <script>
   import EditAdModal from "./EditAdModal";
   export default {
+    metaInfo() {
+    return {
+      title: this.$title('MyAds')
+    }
+  },
     computed: {
       myAds() {
         return this.$store.getters.myAds;

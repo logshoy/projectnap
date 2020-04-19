@@ -27,6 +27,11 @@
 
 <script>
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('Basket')
+    }
+  },
   computed: {
     cart() {
       return this.$store.getters.cart;

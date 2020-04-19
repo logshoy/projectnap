@@ -48,6 +48,11 @@
   const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
   export default {
+    metaInfo() {
+    return {
+      title: this.$title('Login')
+    }
+  },
     data() {
       return {
         email: "",

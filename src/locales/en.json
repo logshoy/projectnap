@@ -38,5 +38,10 @@
     "BuyIt" : "Do you wan't to buy it?",
     "YourName" : "Your name?",
     "YourPhone" : "Your phone?",
-    "Rating" : "Rating"
-}
+    "Rating" : "Rating",
+    "404" : "404",
+    "Ad" : "Ad",
+    "Orders" : "Orders",
+    "ZeroOrders" : "No orders",
+    "Home" : "Home"
+} 

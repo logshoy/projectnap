@@ -8,6 +8,16 @@
   </div>
 </template>
 
+<script>
+export default {
+  metaInfo() {
+    return {
+      title: this.$title('404')
+    }
+  },
+}
+</script>
+
 <style scoped>
 h1 {
   font-size: 75px;

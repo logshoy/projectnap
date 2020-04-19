@@ -7,6 +7,7 @@ import BuyModalComponent from '@/components/Shared/BuyModal'
 import AddToCart from "@/components/Shared/AddToCart";
 import vuetify from './plugins/vuetify'
 import localizeFilter from '@/filters/localize.filter.js'
+import titlePlugin from '@/utils/title.plugin'
 import * as fb from 'firebase'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -15,6 +16,7 @@ Vue.component('add-to-cart', AddToCart)
 Vue.filter('localize', localizeFilter)
 Vue.config.productionTip = false
 Vue.use(VueMeta)
+Vue.use(titlePlugin)
 new Vue({
   router,
   store,

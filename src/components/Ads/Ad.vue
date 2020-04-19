@@ -34,6 +34,11 @@
   import Comments from "./Comments.vue";
 
   export default {
+    metaInfo() {
+    return {
+      title: this.$title('Ad')
+    }
+  },
     props: ["id"],
     computed: {
       ad() {

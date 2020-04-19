@@ -87,7 +87,11 @@
 </template>
 <script>
   export default {
-    props: ["category"],
+    metaInfo() {
+    return {
+      title: this.$title('Category')
+    }
+  },
     data() {
       return {
         page: 1,

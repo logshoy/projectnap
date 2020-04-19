@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h1 class="text--secondary mb-3">{{'AddAd' |localize}}</h1>
+        <h1 class="text--secondary mb-3">{{'AdAdd' |localize}}</h1>
         <v-form v-model="valid" ref="form" validation class="mb-3">
           <v-text-field
             name="title"
@@ -78,6 +78,11 @@
 
 <script>
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('AdAdd')
+    }
+  },
   data() {
     return {
       title: "",

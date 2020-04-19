@@ -75,6 +75,11 @@
 <script>
 export default {
   props: ["category"],
+  metaInfo() {
+    return {
+      title: this.$title('Catefory')
+    }
+  },
   data() {
     return {
       page: 1,

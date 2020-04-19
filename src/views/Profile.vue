@@ -51,8 +51,10 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  metaInfo: {
-    title:"Profile"
+  metaInfo() {
+    return {
+      title: this.$title('ProfileTitle')
+    }
   },
   data() {
     return {
