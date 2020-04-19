@@ -22,7 +22,7 @@
         <v-flex
           xs12
           sm6
-          md4
+          lg4
           v-for="ad of ads
             .slice()
             .reverse()

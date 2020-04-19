@@ -9,7 +9,7 @@
         <v-col cols="4" sm="4" md="4">
           <v-text-field prepend-inner-icon="mdi-lock" :label="'Search'| localize" v-model="search"></v-text-field>
         </v-col>
-        <v-col cols="4" md="4" class="mt-3">
+        <v-col cols="4" sm="4" md="4" class="mt-3">
           <v-range-slider
             v-model="range"
             step="100"

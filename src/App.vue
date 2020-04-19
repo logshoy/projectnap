@@ -18,7 +18,9 @@
                   <v-icon>mdi-cart</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>{{'Catalog' | localize}}</v-list-item-title>
+                  <v-list-item-title>{{
+                    "Catalog" | localize
+                  }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item v-if="isUserLoggedIn" to="/cart">
@@ -26,7 +28,9 @@
                   <v-icon>mdi-cart</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>{{'Basket' | localize}}</v-list-item-title>
+                  <v-list-item-title>{{
+                    "Basket" | localize
+                  }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item
@@ -46,7 +50,9 @@
                   <v-icon>mdi-logout</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>{{'Basket' | localize}}</v-list-item-title>
+                  <v-list-item-title>{{
+                    "Basket" | localize
+                  }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
@@ -69,13 +75,15 @@
           <v-toolbar-items class="hidden-sm-and-down">
             <v-menu v-if="isUserLoggedIn">
               <template v-slot:activator="{ on }">
-                <v-btn color="primary" v-on="on" depressed>{{'Catalog' | localize}}</v-btn>
+                <v-btn color="primary" v-on="on" depressed>{{
+                  "Catalog" | localize
+                }}</v-btn>
               </template>
               <v-list color="primary">
                 <v-list-item>
-                  <v-btn depressed to="/category" color="primary"
-                    >{{'AllCategory' | localize}}</v-btn
-                  >
+                  <v-btn depressed to="/category" color="primary">{{
+                    "AllCategory" | localize
+                  }}</v-btn>
                 </v-list-item>
                 <v-list-item v-for="category in categoryList" :key="category">
                   <v-btn
@@ -100,7 +108,7 @@
             <v-btn depressed color="primary" to="/cart" v-if="isUserLoggedIn">
               <v-badge offset-y="10" left color="warning">
                 <span class="mt-3" slot="badge">{{ totalQuantity }}</span>
-                <v-icon left>mdi-cart</v-icon>{{'Basket' | localize}}
+                <v-icon left>mdi-cart</v-icon>{{ "Basket" | localize }}
               </v-badge>
             </v-btn>
             <v-menu v-if="isUserLoggedIn" depressed>
@@ -114,7 +122,9 @@
               </template>
               <v-list color="primary">
                 <v-list-item>
-                  <v-btn depressed color="primary" to="/profile">{{'ProfileTitle' | localize}}</v-btn>
+                  <v-btn depressed color="primary" to="/profile">{{
+                    "ProfileTitle" | localize
+                  }}</v-btn>
                 </v-list-item>
                 <v-list-item>
                   <v-btn
@@ -123,7 +133,7 @@
                     @click="onLogout"
                     v-if="isUserLoggedIn"
                   >
-                    <v-icon left>mdi-logout</v-icon>{{'Logout' | localize}}
+                    <v-icon left>mdi-logout</v-icon>{{ "Logout" | localize }}
                   </v-btn>
                 </v-list-item>
               </v-list>
@@ -161,44 +171,48 @@
               <strong>Vuetify</strong>
             </div>
           </v-card-title>
-          <row class="d-flex justify-space-between">
-            <v-list class="d-flex align-start flex-column primary">
-              <v-btn
-                class="primary"
-                text
-                v-for="item in categoryList"
-                :key="item"
-                :to="/category/ + item"
-                >{{ item }}</v-btn
-              >
-            </v-list>
-            <v-list class="primary">
-              <v-list-item
-                v-for="link of links"
-                :key="link.title"
-                :to="link.url"
-              >
-                <v-list-item-icon>
-                  <v-icon v-text="link.icon"></v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title v-text="link.title"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item to="/cart" v-if="isUserLoggedIn">
-                <v-list-item-icon>
-                  <v-icon left>mdi-cart</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>Корзина</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-            <div>
+          <v-layout class="d-flex" wrap>
+            <v-col cols="12" sm="4">
+              <v-list class="d-flex cols-footer flex-column primary">
+                <v-btn
+                  class="primary"
+                  text
+                  v-for="item in categoryList"
+                  :key="item"
+                  :to="/category/ + item"
+                  >{{ item }}</v-btn
+                >
+              </v-list>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-list class="d-flex cols-footer flex-column primary">
+                <v-list-item
+                  v-for="link of links"
+                  :key="link.title"
+                  :to="link.url"
+                >
+                  <v-list-item-icon>
+                    <v-icon v-text="link.icon"></v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="link.title"></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item to="/cart" v-if="isUserLoggedIn">
+                  <v-list-item-icon>
+                    <v-icon left>mdi-cart</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Корзина</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-col>
+            <v-col class="d-flex cols-footer " cols="12" sm="4">
               Часы работы:
               <br />Круглосуточно
-            </div>
-          </row>
+            </v-col>
+          </v-layout>
           <row class="d-flex justify-center">© 2020. ВСЕ ПРАВА ЗАЩИЩЕНЫ</row>
         </v-card>
       </v-footer>
@@ -227,6 +241,9 @@
       };
     },
     computed: {
+      loading() {
+        return this.$store.getters.loading;
+      },
       error() {
         return this.$store.getters.error;
       },
@@ -289,5 +306,16 @@
   }
   .pink-text {
     color: purple;
+  }
+
+  @media (max-width: 599px) {
+    .cols-footer {
+      align-items: center;
+    }
+  }
+  @media (min-width: 600px) {
+    .cols-footer {
+      justify-content: center;
+    }
   }
 </style>
