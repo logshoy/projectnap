@@ -9,18 +9,10 @@
       </v-layout>
       <v-layout row wrap>
         <v-col cols="12" md="4">
-          <v-select
-            :label="'Sorting' | localize"
-            :items="items"
-            v-model="sorting"
-          ></v-select>
+          <v-select :label="'Sorting' | localize" :items="items" v-model="sorting"></v-select>
         </v-col>
         <v-col cols="12" md="4">
-          <v-text-field
-            prepend-inner-icon="mdi-lock"
-            :label="'Search' | localize"
-            v-model="search"
-          ></v-text-field>
+          <v-text-field prepend-inner-icon="mdi-lock" :label="'Search' | localize" v-model="search"></v-text-field>
         </v-col>
         <v-col cols="12" md="4" class="mt-3">
           <v-range-slider
@@ -64,7 +56,8 @@
               <div>
                 <h3 class="headline mb-0">{{ ad.title }}</h3>
                 <div>{{ ad.description }}</div>
-                <div>{{ ad.price }}</div>
+                <div>{{ad.price}}</div>
+                <div>{{ad.rating}}</div>
               </div>
             </v-card-title>
             <v-card-actions>
@@ -86,88 +79,98 @@
   </div>
 </template>
 <script>
-  export default {
-    metaInfo() {
+export default {
+  metaInfo() {
     return {
-      title: this.$title('Category')
-    }
+      title: this.$title("Category")
+    };
   },
-    data() {
-      return {
-        page: 1,
-        perPage: 6,
-        search: "",
-        searchItem: [],
-        sorting: "По дате",
-        items: [
-          "По дате",
-          "Cost (Low to Higt)",
-          "Cost(High to Low)",
-          "Name(A-Z)",
-          "Name(Z-A)",
-        ],
-        min: 0,
-        max: 100000000,
-        range: [0, 100000000],
-      };
+  data() {
+    return {
+      page: 1,
+      perPage: 6,
+      search: "",
+      searchItem: [],
+      sorting: "По дате",
+      items: [
+        "По дате",
+        "Cost (Low to Higt)",
+        "Cost(High to Low)",
+        "Name(A-Z)",
+        "Name(Z-A)",
+        "Rating 0-5",
+        "Rating 5-0"
+      ],
+      min: 0,
+      max: 100000000,
+      range: [0, 100000000]
+    };
+  },
+  computed: {
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
     },
-    computed: {
-      isUserLoggedIn() {
-        return this.$store.getters.isUserLoggedIn;
-      },
-      ads() {
-        return this.$store.getters.ads;
-      },
-      categoryList() {
-        return this.$store.getters.category;
-      },
-      visiblePages() {
-        return this.filteredItems
-          .slice()
-          .reverse()
-          .slice((this.page - 1) * this.perPage, this.page * this.perPage);
-      },
-      filteredItems() {
-        let filteredStates = this.ads.filter((item) => {
-          return (
-            (item.title.toLowerCase().match(this.search.toLowerCase()) ||
-              item.description
-                .toLowerCase()
-                .match(this.search.toLowerCase())) &&
-            item.price >= this.range[0] &&
-            item.price <= this.range[1]
-          );
+    ads() {
+      return this.$store.getters.ads;
+    },
+    categoryList() {
+      return this.$store.getters.category;
+    },
+    visiblePages() {
+      return this.filteredItems
+        .slice()
+        .reverse()
+        .slice((this.page - 1) * this.perPage, this.page * this.perPage);
+    },
+    filteredItems() {
+      let filteredStates = this.ads.filter(item => {
+        return (
+          (item.title.toLowerCase().match(this.search.toLowerCase()) ||
+            item.description.toLowerCase().match(this.search.toLowerCase())) &&
+          item.price >= this.range[0] &&
+          item.price <= this.range[1]
+        );
+      });
+      if (this.sorting == "Cost(High to Low)") {
+        filteredStates = filteredStates.sort(
+          (prev, curr) => prev.price - curr.price
+        );
+      }
+      if (this.sorting == "Cost (Low to Higt)") {
+        filteredStates = filteredStates.sort(
+          (prev, curr) => curr.price - prev.price
+        );
+      }
+      if (this.sorting == "Name(A-Z)") {
+        filteredStates = filteredStates.sort((a, b) => {
+          var nameA = a.title.toLowerCase(),
+            nameB = b.title.toLowerCase();
+          if (nameA < nameB) return 1;
+          if (nameA > nameB) return -1;
+          return 0;
         });
-        if (this.sorting == "Cost(High to Low)") {
-          filteredStates = filteredStates.sort(
-            (prev, curr) => prev.price - curr.price
-          );
-        }
-        if (this.sorting == "Cost (Low to Higt)") {
-          filteredStates = filteredStates.sort(
-            (prev, curr) => curr.price - prev.price
-          );
-        }
-        if (this.sorting == "Name(A-Z)") {
-          filteredStates = filteredStates.sort((a, b) => {
-            var nameA = a.title.toLowerCase(),
-              nameB = b.title.toLowerCase();
-            if (nameA < nameB) return 1;
-            if (nameA > nameB) return -1;
-            return 0;
-          });
-        }
-        if (this.sorting == "Name(Z-A)") {
-          filteredStates = filteredStates.sort((a, b) => {
-            var nameA = a.title.toLowerCase(),
-              nameB = b.title.toLowerCase();
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
-            return 0;
-          });
-        }
-        return filteredStates;
-      },
-    },
-  };
+      }
+      if (this.sorting == "Name(Z-A)") {
+        filteredStates = filteredStates.sort((a, b) => {
+          var nameA = a.title.toLowerCase(),
+            nameB = b.title.toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          return 0;
+        });
+      }
+      if (this.sorting == "Rating 5-0") {
+        filteredStates = filteredStates.sort(
+          (prev, curr) => prev.rating - curr.rating
+        );
+      }
+      if (this.sorting == "Rating 0-5") {
+        filteredStates = filteredStates.sort(
+          (prev, curr) => curr.rating - prev.rating
+        );
+      }
+      return filteredStates;
+    }
+  }
+};
 </script>

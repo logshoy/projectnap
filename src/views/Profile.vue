@@ -1,14 +1,14 @@
 <template>
   <v-container>
     <h2>{{'ProfileTitle' | localize}}</h2>
-    <v-layout row>
-      <v-flex xs12>
+    <v-layout class="d-flex align-center mx-2">
         <img :src="imageSrc" height="100" v-if="imageSrc" />
-      </v-flex>
+        <img :src="avatar" v-else height="100" />
+        <v-btn class="ml-9 success"  @click="changeAvatar">Изменить аватар</v-btn>
     </v-layout>
-    <v-layout row class="mb-3">
+    <v-layout row class="mb-3 mx-2">
       <v-flex xs12>
-        <v-btn class="warning" @click="triggerUpload">
+        <v-btn class="warning mt-3" @click="triggerUpload">
           Изображение
           <v-icon right dark>mdi-image</v-icon>
         </v-btn>
@@ -19,12 +19,11 @@
           accept="image/*"
           @change="onFileChange"
         />
-        <v-btn @click="changeAvatar">Изменить аватар</v-btn>
       </v-flex>
     </v-layout>
 
     <form @submit.prevent="submitHandler">
-      <v-col cols="3">
+      <v-col cols="12" sm="8" md="4">
       <v-text-field
         prepend-icon="mdi-account"
         name="Nickname"
@@ -35,9 +34,9 @@
       ></v-text-field>
       </v-col>
       <div class="d-flex">
-      <span class="d-flex align-center left-switch">En</span> <v-switch v-model="isRuLocale" label="Ru"></v-switch>
+      <span class="d-flex align-center left-switch">En</span> <v-switch success v-model="isRuLocale" label="Ru"></v-switch>
        </div>
-      <v-btn type="submit">Изменить данные</v-btn>
+      <v-btn class="success" type="submit">Изменить данные</v-btn>
     </form>
     <v-switch
           v-model="$vuetify.theme.dark"
@@ -68,7 +67,10 @@ export default {
   computed: {
     nameS() {
       return this.$store.getters.info;
-    }
+    },
+    avatar() {
+        return this.$store.getters.info.imageSrc;
+      },
   },
   mounted() {
     this.name = this.nameS.nickname;

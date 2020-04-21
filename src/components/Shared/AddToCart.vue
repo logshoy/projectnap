@@ -1,9 +1,7 @@
 <template>
   <v-dialog width="800px" v-model="modal">
     <template v-slot:activator="{ on }">
-      <v-btn text class="success mr-3" v-on="on" @click="addToCart"
-        >Add to Cart</v-btn
-      >
+      <v-btn text class="success mr-3" v-on="on" @click="addToCart">Add to Cart</v-btn>
     </template>
     <v-card>
       <v-container>
@@ -20,15 +18,11 @@
                 <p>{{'Price' | localize}}:{{ item.cartPrice }}</p>
                 <p>{{'Amount' | localize}}{{ item.cartQuantity }}</p>
               </v-card-text>
-              <v-btn @click="$store.dispatch('removeFromCart', item)"
-                >{{'Delete' | localize}}</v-btn
-              >
+              <v-btn @click="$store.dispatch('removeFromCart', item)">{{'Delete' | localize}}</v-btn>
             </v-layout>
             <v-layout class="mt-3">
               <v-spacer></v-spacer>
-              <v-btn class="mr-3" @click="modal = false"
-                >{{'ContinueShopping' | localize}}</v-btn
-              >
+              <v-btn class="mr-3" @click="modal = false">{{'ContinueShopping' | localize}}</v-btn>
               <v-btn to="/cart">{{'Basket' | localize}}</v-btn>
             </v-layout>
           </v-flex>
@@ -39,31 +33,32 @@
 </template>
 
 <script>
-  export default {
-    name: "add-to-cart",
-    props: ["ad"],
-    data() {
-      return {
-        modal: false,
+export default {
+  name: "add-to-cart",
+  props: ["ad"],
+  data() {
+    return {
+      modal: false
+    };
+  },
+  computed: {
+    cart() {
+      return this.$store.getters.cart;
+    }
+  },
+  methods: {
+    addToCart() {
+      const item = {
+        cartTitle: this.ad.title,
+        cartDescription: this.ad.description,
+        cartImageSrc: this.ad.imageSrc,
+        cartPrice: this.ad.price,
+        cartId: this.ad.id,
+        cartOwner: this.ad.ownerId,
+        cartQuantity: 1
       };
-    },
-    computed: {
-      cart() {
-        return this.$store.getters.cart;
-      },
-    },
-    methods: {
-      addToCart() {
-        const item = {
-          cartTitle: this.ad.title,
-          cartDescription: this.ad.description,
-          cartImageSrc: this.ad.imageSrc,
-          cartPrice: this.ad.price,
-          cartId: this.ad.id,
-          cartQuantity: 1,
-        };
-        this.$store.dispatch("addToCart", item);
-      },
-    },
-  };
+      this.$store.dispatch("addToCart", item);
+    }
+  }
+};
 </script>

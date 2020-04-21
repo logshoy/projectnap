@@ -2,7 +2,8 @@ import * as fb from 'firebase'
 
 export default {
     state: {
-        info: {}
+        info: {},
+        commentedItem: []
     },
     mutations: {
         setInfo(state, info) {
@@ -10,6 +11,12 @@ export default {
         },
         setAvatar(state, avatar) {
             state.info.imageSrc = avatar
+        },
+        createCommentedItem(state, payload) {
+            state.commentedItem.push(payload)
+          },
+        setCommentedItem(state, payload) {
+            state.commentedItem = payload
         }
     },
     actions: {
@@ -70,8 +77,28 @@ export default {
                 throw e
             }
         },
+        async fetchCommentedItem({
+            commit
+        }, uid) {
+            try {
+                const commentedItem = (await fb
+                    .database()
+                    .ref(`/users/${uid}/commentedItem`)
+                    .once('value')).val()
+                    console.log(commentedItem)
+                commit('setCommentedItem', commentedItem)
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        },
     },
     getters: {
-        info: s => s.info
+        info: s => s.info,
+        commentedItem(state) {
+            return categoryId => {
+                return Object.keys(state.commentedItem).includes(categoryId)
+              }
+        }
     }
 }

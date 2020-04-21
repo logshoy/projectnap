@@ -17,12 +17,7 @@
           </v-card-actions>
         </v-card>
         <div v-else class="text-xs-center">
-          <v-progress-circular
-            indeterminate
-            :size="100"
-            :width="4"
-            color="purple"
-          ></v-progress-circular>
+          <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
         </div>
       </v-flex>
     </v-layout>
@@ -31,29 +26,29 @@
 </template>
 
 <script>
-  import Comments from "./Comments.vue";
+import Comments from "./Comments.vue";
 
-  export default {
-    metaInfo() {
+export default {
+  metaInfo() {
     return {
-      title: this.$title('Ad')
+      title: this.$title("Ad")
+    };
+  },
+  props: ["id"],
+  computed: {
+    ad() {
+      const id = this.id;
+      return this.$store.getters.adById(id);
+    },
+    loading() {
+      return this.$store.getters.loading;
+    },
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
     }
   },
-    props: ["id"],
-    computed: {
-      ad() {
-        const id = this.id;
-        return this.$store.getters.adById(id);
-      },
-      loading() {
-        return this.$store.getters.loading;
-      },
-      isUserLoggedIn() {
-        return this.$store.getters.isUserLoggedIn;
-      },
-    },
-    components: {
-      Comments,
-    },
-  };
+  components: {
+    Comments
+  }
+};
 </script>

@@ -116,9 +116,10 @@ export default {
               new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, Adrating.toFixed(3), key)
             )
           } else {
-          resultAds.push(
-            new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, 0, key)
-          )}
+            resultAds.push(
+              new Ad(ad.title, ad.description, ad.price, ad.ownerId, ad.imageSrc, ad.category, ad.promo, 0, key)
+            )
+          }
         })
 
         commit('loadAds', resultAds)

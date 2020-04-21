@@ -38,6 +38,24 @@ export default {
         throw error
       }
     },
+    async createOrderAll({commit,
+    getters},{cart, phone}) {
+      try {
+        const name = getters.info.nickname
+        console.log(name)
+        for (const item of cart) {
+          console.log(item.cartOwner)
+          const orderPush = new Order(name, phone, item.cartId)
+          console.log(orderPush)
+          await fb.database().ref(`/users/${item.cartOwner}/orders`).push(orderPush)
+        }
+        localStorage.clear();
+        commit('clearCart');
+      } catch (error) {
+        commit('setError', error.message)
+        throw error
+      }
+    },
     async fetchOrders({
       commit,
       getters
@@ -81,10 +99,10 @@ export default {
   },
   getters: {
     doneOrders(state) {
-      return state.orders.filter(o => o.done)
+      return state.orders.filter(o => o.done).reverse()
     },
     undoneOrders(state) {
-      return state.orders.filter(o => !o.done)
+      return state.orders.filter(o => !o.done).reverse()
     },
     orders(state, getters) {
       return getters.undoneOrders.concat(getters.doneOrders)

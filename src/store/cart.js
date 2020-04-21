@@ -45,7 +45,9 @@ export default {
             console.log(item)
             commit('removeFromCart', item)
         },
-        clearCart({commit}) {
+        clearCart({
+            commit
+        }) {
             localStorage.clear();
             commit('clearCart');
         }

@@ -2,14 +2,22 @@
   <div>
     <v-container grid-list-lg>
       <h1>{{'Category' | localize}} {{category}}</h1>
-      <v-layout>
-        <v-col cols="4" sm="4" md="4">
-          <v-select :label="'Sorting' | localize" :items="items" v-model="sorting"></v-select>
+      <v-layout row wrap>
+        <v-col cols="12" md="4">
+          <v-select
+            :label="'Sorting' | localize"
+            :items="items"
+            v-model="sorting"
+          ></v-select>
         </v-col>
-        <v-col cols="4" sm="4" md="4">
-          <v-text-field prepend-inner-icon="mdi-lock" :label="'Search'| localize" v-model="search"></v-text-field>
+        <v-col cols="12" md="4">
+          <v-text-field
+            prepend-inner-icon="mdi-lock"
+            :label="'Search' | localize"
+            v-model="search"
+          ></v-text-field>
         </v-col>
-        <v-col cols="4" sm="4" md="4" class="mt-3">
+        <v-col cols="12" md="4" class="mt-3">
           <v-range-slider
             v-model="range"
             step="100"
@@ -52,6 +60,7 @@
                 <h3 class="headline mb-0">{{ad.title}}</h3>
                 <div>{{ad.description}}</div>
                 <div>{{ad.price}}</div>
+                <div>{{ad.rating}}</div>
               </div>
             </v-card-title>
             <v-card-actions>
@@ -91,7 +100,9 @@ export default {
         "Cost (Low to Higt)",
         "Cost(High to Low)",
         "Name(A-Z)",
-        "Name(Z-A)"
+        "Name(Z-A)",
+        "Rating 0-5",
+        "Rating 5-0"
       ],
       min: 0,
       max: 100000000,
@@ -150,6 +161,16 @@ export default {
           if (nameA > nameB) return 1;
           return 0;
         });
+      }
+      if (this.sorting == "Rating 5-0") {
+        filteredStates = filteredStates.sort(
+          (prev, curr) => prev.rating - curr.rating
+        );
+      }
+      if (this.sorting == "Rating 0-5") {
+        filteredStates = filteredStates.sort(
+          (prev, curr) => curr.rating - prev.rating
+        );
       }
       return filteredStates;
     },

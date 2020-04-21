@@ -12,6 +12,7 @@
               <v-checkbox
                 color="success"
                 success
+                :disabled="order.done"
                 :input-value="order.done"
                 @change="markDone(order)"
               ></v-checkbox>

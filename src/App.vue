@@ -1,10 +1,10 @@
 <template>
   <app id="app">
     <v-app app>
-      <v-card flat height="100%">
+      <v-card  flat height="100%">
         <v-navigation-drawer app temporary v-model="drawer">
           <v-list nav dense>
-            <v-list-item>
+            <v-list-item v-if="isUserLoggedIn">
               <v-list-item-avatar>
                 <img :src="avatar" />
               </v-list-item-avatar>
@@ -13,7 +13,7 @@
               </v-list-item-content>
             </v-list-item>
             <v-list-item-group v-model="item" color="primary">
-              <v-list-item v-if="isUserLoggedIn" to="/category">
+              <v-list-item to="/category">
                 <v-list-item-icon>
                   <v-icon>mdi-cart</v-icon>
                 </v-list-item-icon>
@@ -51,7 +51,7 @@
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title>{{
-                    "Basket" | localize
+                    "Logout" | localize
                   }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -59,7 +59,7 @@
           </v-list>
         </v-navigation-drawer>
 
-        <v-toolbar row dense color="primary">
+        <v-toolbar dark row dense color="primary">
           <v-app-bar-nav-icon
             class="hidden-md-and-up"
             @click.stop="drawer = !drawer"
@@ -146,7 +146,7 @@
       </v-card>
       <v-footer dark padless>
         <v-card color="primary" class="px-9 pb-3 flex">
-          <v-card-title class="flex justify-space-between primary py-3">
+          <v-card-title class="flex  justify-space-between primary py-3">
             <router-link to="/" tag="span" class="d-flex pointer">
               Hookah
               <div class="blue-text">6</div>
@@ -173,7 +173,7 @@
           </v-card-title>
           <v-layout class="d-flex" wrap>
             <v-col cols="12" sm="4">
-              <v-list class="d-flex cols-footer flex-column primary">
+              <v-list class="d-flex category cols-footer flex-column primary">
                 <v-btn
                   class="primary"
                   text
@@ -185,7 +185,7 @@
               </v-list>
             </v-col>
             <v-col cols="12" sm="4">
-              <v-list class="d-flex cols-footer flex-column primary">
+              <v-list class="d-flex navigation cols-footer flex-column primary">
                 <v-list-item
                   v-for="link of links"
                   :key="link.title"
@@ -208,7 +208,7 @@
                 </v-list-item>
               </v-list>
             </v-col>
-            <v-col class="d-flex cols-footer " cols="12" sm="4">
+            <v-col class="d-flex time cols-footer " cols="12" sm="4">
               Часы работы:
               <br />Круглосуточно
             </v-col>
@@ -312,10 +312,19 @@
     .cols-footer {
       align-items: center;
     }
+    .time {
+      justify-content:center;
+    }
   }
   @media (min-width: 600px) {
-    .cols-footer {
-      justify-content: center;
+      .category {
+      align-items: start;
+    }
+    .navigation {
+      align-items:center;
+    }
+      .time {
+      justify-content:flex-end;
     }
   }
 </style>

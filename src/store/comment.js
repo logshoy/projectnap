@@ -58,6 +58,11 @@ export default {
             commit('clearError')
             try {
                 await fb.database().ref(`/ads/${adId}/comments`).push(comment)
+                let update = {
+                    [`/users/${uid}/commentedItem/${adId}`]: true,
+                  }
+                  await fb.database().ref().update(update)
+            commit('createCommentedItem',{ [adId] : true})
             } catch (error) {
                 commit('setError', error.message)
                 throw error
@@ -76,7 +81,6 @@ export default {
             try {
                 const fbVal = await fb.database().ref(`/ads/${adId}/comments`).once('value')
                 const comments = fbVal.val()
-                console.log(comments)
                 const arr = Object.keys(comments)
                 for (const item of arr) {
                     const c = comments[item]
@@ -84,13 +88,11 @@ export default {
                         .database()
                         .ref(`/users/${c.uid}/info`)
                         .once('value')).val()
-                    console.log(info)
                     resultComments.push(
                         new giveComment(c.title, c.text, c.time, c.rating, c.uid, info.nickname,
                             info.imageSrc)
                     )
                 }
-                console.log(resultComments)
                 commit('loadComments', resultComments)
                 commit('setLoading', false)
             } catch (error) {
