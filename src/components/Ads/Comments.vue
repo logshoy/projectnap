@@ -2,7 +2,6 @@
   <div class="mt-5">
     <v-container fluid>
       <h2>{{'SendReview' | localize}}</h2>
-      {{commentedItem}}
       <v-form v-model="valid" ref="form" validation class="text-center">
         <v-text-field
           :rules="titleRules"
@@ -138,7 +137,6 @@ export default {
         rating: this.rating
       });
       this.$refs.form.reset();
-      this.$store.dispatch("fetchComments", { adId: this.id });
     }
   }
 };

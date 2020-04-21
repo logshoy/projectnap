@@ -85,8 +85,8 @@ export default {
                     .database()
                     .ref(`/users/${uid}/commentedItem`)
                     .once('value')).val()
-                    console.log(commentedItem)
-                commit('setCommentedItem', commentedItem)
+                    const arrayCommentItem = Object.keys(commentedItem)
+                commit('setCommentedItem', arrayCommentItem)
             } catch (e) {
                 commit('setError', e)
                 throw e
@@ -97,7 +97,7 @@ export default {
         info: s => s.info,
         commentedItem(state) {
             return categoryId => {
-                return Object.keys(state.commentedItem).includes(categoryId)
+                return state.commentedItem.includes(categoryId)
               }
         }
     }

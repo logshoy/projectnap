@@ -26,6 +26,9 @@ export default {
         comments: []
     },
     mutations: {
+        createComment(state,payload) {
+            state.comments.push(payload)
+        },
         loadComments(state, payload) {
             state.comments = payload
         },
@@ -35,7 +38,8 @@ export default {
     },
     actions: {
         async createComments({
-            commit
+            commit,
+            getters
         }, {
             title,
             text,
@@ -51,10 +55,13 @@ export default {
                 minute: '2-digit',
                 second: '2-digit'
             }
-            const uid = await this.getters.user.id
+            const uid = await getters.user.id
             const format = new Intl.DateTimeFormat('ru-Ru', options).format(time);
             const parse = format.toString()
             const comment = new Comment(title, text, parse, rating, uid)
+            const infoUid = getters.info
+            console.log(infoUid.nickname)
+            const commentState = new giveComment(title, text, parse, rating, uid, infoUid.nickname, infoUid.imageSrc)
             commit('clearError')
             try {
                 await fb.database().ref(`/ads/${adId}/comments`).push(comment)
@@ -62,7 +69,8 @@ export default {
                     [`/users/${uid}/commentedItem/${adId}`]: true,
                   }
                   await fb.database().ref().update(update)
-            commit('createCommentedItem',{ [adId] : true})
+            commit('createComment',commentState)
+            commit('createCommentedItem',adId )
             } catch (error) {
                 commit('setError', error.message)
                 throw error
