@@ -82,7 +82,7 @@
 export default {
   metaInfo() {
     return {
-      title: this.$title("Category")
+      title: this.$title("Catalog")
     };
   },
   data() {

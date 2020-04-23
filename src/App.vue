@@ -250,8 +250,6 @@ export default {
     } else  {
       this.dialog = true
     }
-    console.log(this.eighteen,"ss")
-     console.log( this.dialog,"ww")
   },
   computed: {
     loading() {

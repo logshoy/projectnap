@@ -86,7 +86,7 @@ export default {
   props: ["category"],
   metaInfo() {
     return {
-      title: this.$title('Catefory')
+      title: this.$title('Catalog')
     }
   },
   data() {

@@ -27,6 +27,8 @@
               ></v-text-field>
             </v-form>
           </v-card-text>
+          <v-card-subtitle></v-card-subtitle>
+         <v-card-subtitle class="d-flex justify-center"><v-btn to=/registration text>{{'Registration' | localize}}</v-btn></v-card-subtitle> 
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
@@ -34,9 +36,7 @@
               @click="onSubmit"
               :loading="loading"
               :disabled="!valid || loading"
-            >
-             {{'Login' | localize}}
-            </v-btn>
+            >{{'Login' | localize}}</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -45,57 +45,58 @@
 </template>
 
 <script>
-  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-  export default {
-    metaInfo() {
+export default {
+  metaInfo() {
     return {
-      title: this.$title('Login')
+      title: this.$title("Login")
+    };
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+      valid: false,
+      emailRules: [
+        v => !!v || "E-mail обязательный",
+        v => emailRegex.test(v) || "E-mail должен быть валидным"
+      ],
+      passwordRules: [
+        v => !!v || "Пароль обязательный",
+        v => (v && v.length >= 6) || "Пароль должен быть больше чем 6 символов"
+      ]
+    };
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.loading;
     }
   },
-    data() {
-      return {
-        email: "",
-        password: "",
-        valid: false,
-        emailRules: [
-          v => !!v || "E-mail обязательный",
-          v => emailRegex.test(v) || "E-mail должен быть валидным"
-        ],
-        passwordRules: [
-          v => !!v || "Пароль обязательный",
-          v =>
-            (v && v.length >= 6) ||
-            "Пароль должен быть больше чем 6 символов"
-        ]
-      };
-    },
-    computed: {
-      loading () {
-        return this.$store.getters.loading
-      }
-    },
-    methods: {
-      onSubmit() {
-        if (this.$refs.form.validate()) {
-          const user = {
-            email: this.email,
-            password: this.password
-          };
+  methods: {
+    onSubmit() {
+      if (this.$refs.form.validate()) {
+        const user = {
+          email: this.email,
+          password: this.password
+        };
 
-          this.$store
-            .dispatch("loginUser", user)
-            .then(() => {
-              this.$router.push("/");
-            })
-            .catch(() => {});
-        }
-      }
-    },
-    created() {
-      if (this.$route.query["loginError"]) {
-        this.$store.dispatch("setError", "Пожалуйста авторизируйтесь чтобы зайти на эту страницу");
+        this.$store
+          .dispatch("loginUser", user)
+          .then(() => {
+            this.$router.push("/");
+          })
+          .catch(() => {});
       }
     }
-  };
+  },
+  created() {
+    if (this.$route.query["loginError"]) {
+      this.$store.dispatch(
+        "setError",
+        "Пожалуйста авторизируйтесь чтобы зайти на эту страницу"
+      );
+    }
+  }
+};
 </script>

@@ -65,8 +65,6 @@ export default {
         const ad = await fb.database().ref('ads').push(newAd)
         const imageExt = image.name.slice(image.name.lastIndexOf('.'))
         const keys = payload.category
-        console.log(newAd)
-        console.log(keys)
         let update = {
           [`category/${payload.category}/ads/${ad.key}`]: true,
           [`ads/${ad.key}/category/${payload.category}`]: true

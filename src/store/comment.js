@@ -60,7 +60,6 @@ export default {
             const parse = format.toString()
             const comment = new Comment(title, text, parse, rating, uid)
             const infoUid = getters.info
-            console.log(infoUid.nickname)
             const commentState = new giveComment(title, text, parse, rating, uid, infoUid.nickname, infoUid.imageSrc)
             commit('clearError')
             try {

@@ -52,7 +52,6 @@ export default {
       try {
         const name = getters.info.nickname
         for (const item of cart) {
-          console.log(item.cartOwner)
           const orderPush = new Order(name, phone, item.cartId, item.cartTitle, item.cartQuantity)
           await fb.database().ref(`/users/${item.cartOwner}/orders`).push(orderPush)
         }

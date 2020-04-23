@@ -25,14 +25,11 @@ export default {
             getters
         }, payload) {
             try {
-                console.log(payload.name)
                 const uid = await getters.user.id
                 const imageExt = payload.name.slice(payload.name.lastIndexOf('.'))
-                console.log(imageExt)
                 const fileData = await fb.storage().ref(`users/${uid}.${imageExt}`).put(payload)
-                console.log(fileData)
                 const imageSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
-                console.log(imageSrc)
+
                 await fb
                     .database()
                     .ref(`/users/${uid}/info`)
