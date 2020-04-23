@@ -2,7 +2,7 @@
     "ProfileTitle": "Профиль",
     "Catalog": "Каталог",
     "Category": "Категория",
-    "Basket": "В Корзину",
+    "Basket": "Корзина",
     "Logout": "Выйти",
     "AllCategory": "Все категории",
     "Sorting": "Сортировка",
@@ -15,7 +15,7 @@
     "Title": "Заголовок",
     "Text": "Текст",
     "Send": "Отправить",
-    "SendReview" : "Отправить отзыв",
+    "SendReview": "Отправить отзыв",
     "SendReviews": "Отправленные отзывы",
     "FirstComments": "Нет комментариев, станьте первым!",
     "Change": "Изменить",
@@ -43,6 +43,11 @@
     "Ad": "Товар",
     "Orders": "Заказы",
     "ZeroOrders": "У вас нет заказов",
-    "Home": "Главная"
+    "Home": "Главная",
+    "NewItems": " Новинки",
+    "Goods at producer prices" : "Товары по ценам производителя",
+    "Certified Product Only" : "Только сертифицированный товар",
+    "Professional equipment selection" : "Профессиональный подбор оборудования",
+    "Free and fast delivery" : "Бесплатная и быстрая доставка"
 
 }

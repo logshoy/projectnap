@@ -15,7 +15,7 @@
     "Title": "Title",
     "Text": "Text",
     "Send": "Send",
-    "SendReview" : "Send revie",
+    "SendReview": "Send revie",
     "SendReviews": "Sent reviews",
     "FirstComments": "No comments, be the first!",
     "Change": "Change",
@@ -44,5 +44,11 @@
     "Ad": "Ad",
     "Orders": "Orders",
     "ZeroOrders": "No orders",
-    "Home": "Home"
+    "Home": "Home",
+    "NewItems": " New items",
+    "Goods at producer prices" : "Товары по ценам производителя",
+    "Certified Product Only" : "Certified Product Only",
+    "Professional equipment selection" : "Professional equipment selection",
+    "Free and fast delivery" : "Free and fast delivery"
+
 }

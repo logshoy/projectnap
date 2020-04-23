@@ -32,8 +32,10 @@
                   <v-text-field
                     name="phone"
                     :label="'YourPhone' | localize"
-                    type="text"
+                    type="phone"
                     v-model="phone"
+                    required
+                    :rules="[v => !!v || 'Phone is required']"
                   ></v-text-field>
                 </v-card-text>
               </v-flex>
@@ -43,13 +45,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn text @click="onCancel" :disabled="localLoading">{{'Close' | localize}}</v-btn>
-                  <v-btn
-                    class="success"
-                    text
-                    @click="buyAll"
-                    :disabled="localLoading"
-                    :loading="localLoading"
-                  >{{'Buy' | localize}}!</v-btn>
+                  <v-btn class="success" text @click="buyAll">{{'Buy' | localize}}!</v-btn>
                 </v-card-actions>
               </v-flex>
             </v-layout>
@@ -87,15 +83,17 @@ export default {
       this.dialog = false;
     },
     buyAll() {
-      this.$store
-        .dispatch("createOrderAll", {
-          cart: this.cart,
-          phone: this.phone,
-        })
-        .finally(() => {
-          this.phone = "";
-          this.dialog = false;
-        });
+      if (this.phone !== "") {
+        this.$store
+          .dispatch("createOrderAll", {
+            cart: this.cart,
+            phone: this.phone
+          })
+          .finally(() => {
+            this.phone = "";
+            this.dialog = false;
+          });
+      }
     }
   }
 };

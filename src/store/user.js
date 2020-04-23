@@ -34,6 +34,7 @@ export default {
           imageSrc,
           locale
         })
+        await fb.database().ref(`/users/${user.user.uid}/commentedItem`).push('test')
         commit('setUser', new User(user.user.uid))
         commit('setLoading', false)
       } catch (error) {

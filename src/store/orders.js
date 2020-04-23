@@ -51,11 +51,9 @@ export default {
     }) {
       try {
         const name = getters.info.nickname
-        console.log(name)
         for (const item of cart) {
           console.log(item.cartOwner)
           const orderPush = new Order(name, phone, item.cartId, item.cartTitle, item.cartQuantity)
-          console.log(orderPush)
           await fb.database().ref(`/users/${item.cartOwner}/orders`).push(orderPush)
         }
         localStorage.clear();

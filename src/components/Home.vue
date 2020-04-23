@@ -13,51 +13,43 @@
         </v-flex>
       </v-layout>
     </v-container>
-        <v-container >
+    <v-container>
       <v-layout row>
         <v-flex xs12>
           <div class="tizer">
             <v-col cols="12" sm="6" md="3">
-				<div class="tizer__item">
-					<div class="tizer__img">
-						<img src="product.png" alt="Продукт">
-					</div>
-					<div class="tizer__title">
-						Товары по ценам производителя
-					</div>
-				</div>
-        </v-col >
-          <v-col cols="12" sm="6"  md="3">
-				<div class="tizer__item">
-					<div class="tizer__img">
-						<img src="certificate.png" alt="Продукт">
-					</div>
-					<div class="tizer__title">
-						Только сертифицированный товар
-					</div>
-				</div>
-        </v-col>
-        <v-col cols="12" sm="6"  md="3">
-				<div class="tizer__item">
-					<div class="tizer__img">
-						<img src="instruments.png" alt="Продукт">
-					</div>
-					<div class="tizer__title">
-						Профессиональный подбор оборудования
-					</div>
-				</div>
-        </v-col>
-        <v-col cols="12" sm="6"  md="3">
-				<div class="tizer__item">
-					<div class="tizer__img">
-						<img src="delivery.png" alt="Продукт">
-					</div>
-					<div class="tizer__title">
-						Бесплатная и быстрая доставка
-					</div>
-				</div>
-        </v-col>
-			</div>
+              <div class="tizer__item">
+                <div class="tizer__img">
+                  <img src="product.png" alt="Продукт" />
+                </div>
+                <div class="tizer__title">{{'Goods at producer prices' | localize}}</div>
+              </div>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <div class="tizer__item">
+                <div class="tizer__img">
+                  <img src="certificate.png" alt="Продукт" />
+                </div>
+                <div class="tizer__title">{{'Certified Product Only' | localize}}</div>
+              </div>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <div class="tizer__item">
+                <div class="tizer__img">
+                  <img src="instruments.png" alt="Продукт" />
+                </div>
+                <div class="tizer__title">{{'Professional equipment selection' | localize}}</div>
+              </div>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <div class="tizer__item">
+                <div class="tizer__img">
+                  <img src="delivery.png" alt="Продукт" />
+                </div>
+                <div class="tizer__title">{{'Free and fast delivery' | localize}}</div>
+              </div>
+            </v-col>
+          </div>
         </v-flex>
       </v-layout>
     </v-container>
@@ -74,7 +66,12 @@
           :key="ad.id"
         >
           <v-card>
-            <v-img class="card-img d-flex align-self-center" :src="ad.imageSrc" height="200px" width="100px" ></v-img>
+            <v-img
+              class="card-img d-flex align-self-center"
+              :src="ad.imageSrc"
+              height="200px"
+              width="100px"
+            ></v-img>
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">{{ ad.title }}</h3>
@@ -174,5 +171,4 @@ export default {
   height: 80px;
   min-width: 80px;
 }
-
 </style>

@@ -1,8 +1,9 @@
 let cart = window.localStorage.getItem('cart');
-
+let eighteen = window.localStorage.getItem('eighteen');
 export default {
     state: {
         cart: cart ? JSON.parse(cart) : [],
+        eighteen: eighteen ? JSON.parse(eighteen) : ""
     },
     mutations: {
         addToCart(state, item) {
@@ -22,7 +23,6 @@ export default {
         removeFromCart(state, item) {
 
             let index = state.cart.indexOf(item);
-            console.log(item)
             state.cart.splice(index, 1);
 
             this.commit('saveData');
@@ -30,7 +30,13 @@ export default {
         },
         clearCart(state) {
             state.cart.splice(0);
-        }
+        },
+        eighteen(state, item) {
+            state.eighteen = item
+        },
+        saveEighteen(state) {
+            window.localStorage.setItem('eighteen', JSON.stringify(state. eighteen));
+        },
     },
     actions: {
         addToCart({
@@ -42,7 +48,6 @@ export default {
         removeFromCart({
             commit
         }, item) {
-            console.log(item)
             commit('removeFromCart', item)
         },
         clearCart({
@@ -50,12 +55,19 @@ export default {
         }) {
             localStorage.clear();
             commit('clearCart');
+        },
+        eighteen({commit} ,item) {
+            commit('eighteen', item)
+            commit('saveEighteen');
         }
     },
 
     getters: {
         cart(state) {
             return state.cart
+        },
+        eighteen(state) {
+            return state.eighteen
         },
         totalPrice: state => {
             let total = 0;

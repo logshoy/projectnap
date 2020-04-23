@@ -2,9 +2,9 @@
   <v-container>
     <h2>{{'ProfileTitle' | localize}}</h2>
     <v-layout class="d-flex align-center mx-2">
-        <img :src="imageSrc" height="100" v-if="imageSrc" />
-        <img :src="avatar" v-else height="100" />
-        <v-btn class="ml-9 success"  @click="changeAvatar">Изменить аватар</v-btn>
+      <img :src="imageSrc" height="100" v-if="imageSrc" />
+      <img :src="avatar" v-else height="100" />
+      <v-btn class="ml-9 success" @click="changeAvatar">Изменить аватар</v-btn>
     </v-layout>
     <v-layout row class="mb-3 mx-2">
       <v-flex xs12>
@@ -24,26 +24,22 @@
 
     <form @submit.prevent="submitHandler">
       <v-col cols="12" sm="8" md="4">
-      <v-text-field
-        prepend-icon="mdi-account"
-        name="Nickname"
-        label="Nickname"
-        type="text"
-        v-model="name"
-        :rules="nicknameRules"
-      ></v-text-field>
+        <v-text-field
+          prepend-icon="mdi-account"
+          name="Nickname"
+          label="Nickname"
+          type="text"
+          v-model="name"
+          :rules="nicknameRules"
+        ></v-text-field>
       </v-col>
       <div class="d-flex">
-      <span class="d-flex align-center left-switch">En</span> <v-switch success v-model="isRuLocale" label="Ru"></v-switch>
-       </div>
+        <span class="d-flex align-center left-switch">En</span>
+        <v-switch success v-model="isRuLocale" label="Ru"></v-switch>
+      </div>
       <v-btn class="success" type="submit">Изменить данные</v-btn>
     </form>
-    <v-switch
-          v-model="$vuetify.theme.dark"
-          hide-details
-          inset
-          label="Theme Dark"
-        ></v-switch>
+    <v-switch v-model="$vuetify.theme.dark" hide-details inset label="Theme Dark"></v-switch>
   </v-container>
 </template>
 
@@ -52,8 +48,8 @@ import { mapActions } from "vuex";
 export default {
   metaInfo() {
     return {
-      title: this.$title('ProfileTitle')
-    }
+      title: this.$title("ProfileTitle")
+    };
   },
   data() {
     return {
@@ -69,8 +65,8 @@ export default {
       return this.$store.getters.info;
     },
     avatar() {
-        return this.$store.getters.info.imageSrc;
-      },
+      return this.$store.getters.info.imageSrc;
+    }
   },
   mounted() {
     this.name = this.nameS.nickname;
@@ -105,7 +101,7 @@ export default {
 </script>
 
 <style>
-  .left-switch{
-    color:  rgba(0,0,0,.6);
-  }
+.left-switch {
+  color:  #4caf50;
+}
 </style>

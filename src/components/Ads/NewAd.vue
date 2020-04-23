@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex xs12 sm6 offset-sm3>
+      <v-flex class="form-ad" xs12 sm6 offset-sm3>
         <h1 class="text--secondary mb-3">{{'AdAdd' |localize}}</h1>
         <v-form v-model="valid" ref="form" validation class="mb-3">
           <v-text-field
@@ -35,42 +35,44 @@
             :rules="[v => !!v || 'Category is required']"
           ></v-select>
         </v-form>
-        <v-layout row class="mb-3">
-          <v-flex xs12>
-            <v-btn class="warning" @click="triggerUpload">
-              {{'Image' |localize}}
-              <v-icon right dark>mdi-image</v-icon>
-            </v-btn>
-            <input
-              ref="fileInput"
-              type="file"
-              style="display: none;"
-              accept="image/*"
-              @change="onFileChange"
-            />
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs12>
-            <img :src="imageSrc" height="100" v-if="imageSrc" />
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs12>
-            <v-switch :label="'AddToPromo' | localize" v-model="promo" color="primary"></v-switch>
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs12>
-            <v-spacer></v-spacer>
-            <v-btn
-              :loading="loading"
-              :disabled="!valid || !image || loading"
-              class="success"
-              @click="createAd"
-            >{{'AdAdd' | localize}}</v-btn>
-          </v-flex>
-        </v-layout>
+        <v-container>
+          <v-layout row class="mb-3">
+            <v-flex xs12>
+              <v-btn class="warning" @click="triggerUpload">
+                {{'Image' |localize}}
+                <v-icon right dark>mdi-image</v-icon>
+              </v-btn>
+              <input
+                ref="fileInput"
+                type="file"
+                style="display: none;"
+                accept="image/*"
+                @change="onFileChange"
+              />
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12>
+              <img :src="imageSrc" height="100" v-if="imageSrc" />
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12>
+              <v-switch :label="'AddToPromo' | localize" v-model="promo" color="primary"></v-switch>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12>
+              <v-spacer></v-spacer>
+              <v-btn
+                :loading="loading"
+                :disabled="!valid || !image || loading"
+                class="success"
+                @click="createAd"
+              >{{'AdAdd' | localize}}</v-btn>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </v-flex>
     </v-layout>
   </v-container>
@@ -139,3 +141,11 @@ export default {
   }
 };
 </script>
+
+<style >
+@media (max-width: 599px) {
+  .form-ad {
+    padding: 0 10px;
+  }
+}
+</style>

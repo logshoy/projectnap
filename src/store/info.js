@@ -14,7 +14,7 @@ export default {
         },
         createCommentedItem(state, payload) {
             state.commentedItem.push(payload)
-          },
+        },
         setCommentedItem(state, payload) {
             state.commentedItem = payload
         }
@@ -36,7 +36,9 @@ export default {
                 await fb
                     .database()
                     .ref(`/users/${uid}/info`)
-                    .update({imageSrc})
+                    .update({
+                        imageSrc
+                    })
                 commit('setAvatar', imageSrc)
             } catch (e) {
                 commit('setError', e)
@@ -46,23 +48,23 @@ export default {
         async updateInfo({
             commit,
             getters
-          }, toUpdate) {
+        }, toUpdate) {
             try {
-              const uid = await getters.user.id
-              const updateData = {
-                ...getters.info,
-                ...toUpdate
-              }
-              await fb
-                .database()
-                .ref(`/users/${uid}/info`)
-                .update(updateData)
-              commit('setInfo', updateData)
+                const uid = await getters.user.id
+                const updateData = {
+                    ...getters.info,
+                    ...toUpdate
+                }
+                await fb
+                    .database()
+                    .ref(`/users/${uid}/info`)
+                    .update(updateData)
+                commit('setInfo', updateData)
             } catch (e) {
-              commit('setError', e)
-              throw e
+                commit('setError', e)
+                throw e
             }
-          },
+        },
         async fetchInfo({
             commit
         }, uid) {
@@ -85,7 +87,7 @@ export default {
                     .database()
                     .ref(`/users/${uid}/commentedItem`)
                     .once('value')).val()
-                    const arrayCommentItem = Object.keys(commentedItem)
+                const arrayCommentItem = Object.keys(commentedItem)
                 commit('setCommentedItem', arrayCommentItem)
             } catch (e) {
                 commit('setError', e)
@@ -98,7 +100,7 @@ export default {
         commentedItem(state) {
             return categoryId => {
                 return state.commentedItem.includes(categoryId)
-              }
+            }
         }
     }
 }

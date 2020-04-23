@@ -18,12 +18,14 @@
           color="purple"
           size="64"
         ></v-rating>
-        <v-btn
+        <v-btn 
+          v-if="isUserLoggedIn"
           :disabled="!valid || !this.rating || loading || commentedItem"
           :loading="loading"
           @click="sendComment"
-          class="error"
+          class="error mt-3"
         >{{ "Send" | localize}}</v-btn>
+        <v-btn v-else class="error mt-3" to="/login">{{'Login' |localize}}</v-btn>
       </v-form>
       <h2>{{ "SendReviews" | localize}}</h2>
       <div v-if="loading" class="text-xs-center">
@@ -119,7 +121,10 @@ export default {
     commentedItem() {
       const id = this.id;
       return this.$store.getters.commentedItem(id)
-    }
+    },
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
+    },
   },
   mounted() {
     this.$store.dispatch("fetchComments", { adId: this.id });
@@ -144,7 +149,7 @@ export default {
 
 <style >
 .avatar {
-  max-width: 70px;
+  max-width: 150px;
   overflow-wrap: break-word;
 }
 </style>

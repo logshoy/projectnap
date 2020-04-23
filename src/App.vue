@@ -7,14 +7,16 @@
           <h1>18 есть да нет?</h1>
           <v-card-actions class="d-flex justify-center">
             <v-btn color="error" text @click="destroy">Меньше 18</v-btn>
-            <v-btn color="success" text @click="dialog = false">18 и больше</v-btn>
+            <v-btn color="success" text @click="accept">18 и больше</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
       <v-dialog fullscreen v-model="modal" persistent>
         <v-card class="d-flex flex-column justify-center align-center">
           <v-card-title class="headline">Спасибо за честность</v-card-title>
-<h1><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Возможно вам понравится вот это</a></h1>
+          <h1>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Возможно вам понравится вот это</a>
+          </h1>
         </v-card>
       </v-dialog>
       <v-card flat height="100%">
@@ -88,7 +90,7 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items class="hidden-sm-and-down">
-            <v-menu >
+            <v-menu>
               <template v-slot:activator="{ on }">
                 <v-btn color="primary" v-on="on" depressed>
                   {{
@@ -123,7 +125,7 @@
             <v-menu v-if="isUserLoggedIn" depressed>
               <template v-slot:activator="{ on }">
                 <v-btn color="primary" v-on="on" depressed>
-                  <v-avatar class="mr-3" size="40">
+                  <v-avatar class="mr-3" :size="40">
                     <v-img :src="avatar"></v-img>
                   </v-avatar>
                   {{ nickname }}
@@ -242,6 +244,9 @@ export default {
       modal: false
     };
   },
+  created() {
+      this.dialog = this.eighteen === true;
+  },
   computed: {
     loading() {
       return this.$store.getters.loading;
@@ -251,6 +256,9 @@ export default {
     },
     isUserLoggedIn() {
       return this.$store.getters.isUserLoggedIn;
+    },
+    eighteen() {
+      return this.$store.getters.eighteen
     },
     links() {
       if (this.isUserLoggedIn) {
@@ -292,9 +300,13 @@ export default {
       this.$router.push("/");
       this.$store.dispatch("clearCart");
     },
+    accept() {
+      this.dialog = false;
+      this.$store.dispatch("eighteen", false);
+    },
     destroy() {
-      this.modal = true
-      this.destroy()
+      this.modal = true;
+      this.destroy();
     }
   }
 };
@@ -321,7 +333,7 @@ export default {
   .time {
     justify-content: center;
   }
-    .footer-title {
+  .footer-title {
     justify-content: center;
     align-items: center;
   }
