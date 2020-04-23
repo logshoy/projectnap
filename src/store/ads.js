@@ -28,6 +28,7 @@ export default {
     updateAd(state, {
       title,
       description,
+      price,
       id
     }) {
       const ad = state.ads.find(a => {
@@ -36,6 +37,7 @@ export default {
 
       ad.title = title
       ad.description = description
+      ad.price = price
     }
   },
   actions: {
@@ -56,7 +58,8 @@ export default {
           getters.user.id,
           '',
           '',
-          payload.promo
+          payload.promo,
+          0
         )
 
         const ad = await fb.database().ref('ads').push(newAd)

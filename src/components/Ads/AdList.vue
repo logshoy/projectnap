@@ -6,7 +6,7 @@
         <v-card class="elevation-10 mb-3" v-for="ad in myAds" :key="ad.id">
           <v-layout>
             <v-flex xs4>
-              <v-img :src="ad.imageSrc" height="160px"></v-img>
+              <v-img class="card-img" :src="ad.imageSrc" height="160px" width="80px"></v-img>
             </v-flex>
             <v-flex xs8>
               <v-card-text>
@@ -31,35 +31,35 @@
     </v-layout>
     <v-layout v-else>
       <v-flex xs12 class="text-xs-center">
-        <v-progress-circular
-          indeterminate
-          :size="100"
-          :width="4"
-          color="purple"
-        ></v-progress-circular>
+        <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-  import EditAdModal from "./EditAdModal";
-  export default {
-    metaInfo() {
+import EditAdModal from "./EditAdModal";
+export default {
+  metaInfo() {
     return {
-      title: this.$title('MyAds')
+      title: this.$title("MyAds")
+    };
+  },
+  computed: {
+    myAds() {
+      return this.$store.getters.myAds;
+    },
+    loading() {
+      return this.$store.getters.loading;
     }
   },
-    computed: {
-      myAds() {
-        return this.$store.getters.myAds;
-      },
-      loading() {
-        return this.$store.getters.loading;
-      },
-    },
-    components: {
-      addEditAdModal: EditAdModal,
-    },
-  };
+  components: {
+    addEditAdModal: EditAdModal
+  }
+};
 </script>
+<style >
+  .card-img {
+  margin: 0 auto;
+}
+</style>

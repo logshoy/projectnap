@@ -56,8 +56,8 @@
               <div>
                 <h3 class="headline mb-0">{{ ad.title }}</h3>
                 <div>{{ ad.description }}</div>
-                <div>{{ad.price}}</div>
-                <div>{{ad.rating}}</div>
+                <div>{{ad.price}} ₽</div>
+                <div>{{'Rating' | localize}}:{{ad.rating}}</div>
               </div>
             </v-card-title>
             <v-card-actions>
@@ -102,8 +102,8 @@ export default {
         "Rating 5-0"
       ],
       min: 0,
-      max: 100000000,
-      range: [0, 100000000]
+      max: 10000,
+      range: [0, 10000]
     };
   },
   computed: {

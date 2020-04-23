@@ -2,8 +2,7 @@
   <div>
     <v-container fill-heightv>
       <h1 class="text-center">404</h1>
-      
-      <img src="https://tenor.com/view/lizard-dance-dancing-swag-cool-gif-14066457" alt="description of gif" />
+      <router-link class="d-flex justify-center size-run" to="/">БЕГИТЕ ГЛУПЦЫ</router-link>
     </v-container>
   </div>
 </template>
@@ -20,6 +19,10 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 75px;
+  font-size: 100px;
+}
+.size-run {
+  font-size: 100px;
+  text-decoration: none;
 }
 </style>

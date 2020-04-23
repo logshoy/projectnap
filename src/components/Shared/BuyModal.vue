@@ -1,8 +1,10 @@
 <template>
   <v-dialog width="500px" v-model="modal">
     <template v-slot:activator="{ on }">
-      <v-btn class="primary" v-on="on">{{'Buy' | localize}}</v-btn>
+      <v-btn v-if="isUserLoggedIn" class="primary" v-on="on">{{'Buy' | localize}}</v-btn>
+      <v-btn v-else class="primary" to="/login">{{'Buy' | localize}}</v-btn>
     </template>
+    <v-btn>chjgh</v-btn>
     <v-card>
       <v-container>
         <v-layout row>
@@ -16,7 +18,6 @@
         <v-layout row>
           <v-flex xs12>
             <v-card-text>
-              <v-text-field name="name" :label="'YourName' | localize" type="text" v-model="name"></v-text-field>
               <v-text-field
                 name="phone"
                 :label="'YourPhone' | localize"
@@ -53,29 +54,30 @@ export default {
   data() {
     return {
       modal: false,
-      name: "",
       phone: "",
       localLoading: false
     };
   },
+  computed: {
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
+    }
+  },
   methods: {
     onCancel() {
-      this.name = "";
       this.phone = "";
       this.modal = false;
     },
     onSave() {
-      if (this.name !== "" && this.phone !== "") {
+      if (this.phone !== "") {
         this.localLoading = true;
         this.$store
           .dispatch("createOrder", {
-            name: this.name,
             phone: this.phone,
             adId: this.ad.id,
             ownerId: this.ad.ownerId
           })
           .finally(() => {
-            this.name = "";
             this.phone = "";
             this.localLoading = false;
             this.modal = false;

@@ -1,7 +1,7 @@
 <template>
   <v-dialog width="800px" v-model="modal">
     <template v-slot:activator="{ on }">
-      <v-btn text class="success mr-3" v-on="on" @click="addToCart">Add to Cart</v-btn>
+      <v-btn text class="success mr-3" v-on="on" @click="addToCart">{{'Basket' | localize}}</v-btn>
     </template>
     <v-card>
       <v-container>

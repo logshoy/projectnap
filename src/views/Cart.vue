@@ -10,7 +10,7 @@
           <v-card-text>
             <h3>{{'Title' | localize}}:{{item.cartTitle}}</h3>
             <p>{{'Descriprion' | localize}}:{{item.cartDescription}}</p>
-            <p>{{'Price' | localize}}:{{item.cartPrice}}P</p>
+            <p>{{'Price' | localize}}:{{item.cartPrice}} ₽</p>
             <p>{{'Amount' | localize}}:{{item.cartQuantity}}</p>
           </v-card-text>
         </v-col>
@@ -19,7 +19,7 @@
         </v-col>
       </v-layout>
       <v-layout class="d-flex align-center">
-        <div>{{'TotalPrice'| localize}} : {{ totalPrice }} Р</div>
+        <div>{{'TotalPrice'| localize}} : {{ totalPrice }} ₽</div>
         <v-btn class="error ml-3" @click.stop="dialog = true">{{'Buy' | localize}}</v-btn>
       </v-layout>
       <v-dialog v-model="dialog" width="500px">
@@ -56,11 +56,14 @@
           </v-container>
         </v-card>
       </v-dialog>
+
     </v-container>
   </div>
 </template>
 
 <script>
+
+
 export default {
   metaInfo() {
     return {
@@ -70,7 +73,7 @@ export default {
   data() {
     return {
       dialog: false,
-      phone: ""
+      phone: "",
     };
   },
   computed: {

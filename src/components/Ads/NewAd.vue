@@ -14,7 +14,7 @@
           ></v-text-field>
           <v-text-field
             name="description"
-            :label="'Description' |localize"
+            :label="'Descriprion' |localize"
             type="text"
             v-model="description"
             multi-line
@@ -80,8 +80,8 @@
 export default {
   metaInfo() {
     return {
-      title: this.$title('AdAdd')
-    }
+      title: this.$title("AdAdd")
+    };
   },
   data() {
     return {
@@ -101,7 +101,7 @@ export default {
     },
     categoryList() {
       return this.$store.getters.category;
-    },
+    }
   },
   methods: {
     createAd() {

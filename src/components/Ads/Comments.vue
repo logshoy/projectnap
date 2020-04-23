@@ -10,7 +10,7 @@
           type="text"
           v-model="title"
         ></v-text-field>
-        <v-textarea :rules="descriptionRules" :label="'Title' | localize" v-model="text" outlined></v-textarea>
+        <v-textarea :rules="descriptionRules" :label="'Descriprion' | localize" v-model="text" outlined></v-textarea>
         <v-rating
           v-model="rating"
           value

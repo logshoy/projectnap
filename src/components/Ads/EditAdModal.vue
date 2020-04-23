@@ -1,7 +1,7 @@
 <template>
   <v-dialog width="400px" v-model="modal">
     <template v-slot:activator="{ on }">
-      <v-btn class="warning mr-3" v-on="on">{{'Change' | localize}}</v-btn>
+      <v-btn class="warning mr-1" v-on="on">{{'Change' | localize}}</v-btn>
     </template>
     <v-card>
       <v-container>
@@ -16,10 +16,15 @@
         <v-layout row>
           <v-flex xs12>
             <v-card-text>
-              <v-text-field name="title" :label="'Change' | localize" type="text" v-model="editedTitle"></v-text-field>
+              <v-text-field
+                name="title"
+                :label="'Title' | localize"
+                type="text"
+                v-model="editedTitle"
+              ></v-text-field>
               <v-text-field
                 name="description"
-                :label="'Description' | localize"
+                :label="'Descriprion' | localize"
                 type="text"
                 multi-line
                 v-model="editedDescription"
@@ -67,7 +72,11 @@ export default {
       this.modal = false;
     },
     onSave() {
-      if (this.editedDescription !== "" && this.editedTitle !== "" && this.editedPrice !== "") {
+      if (
+        this.editedDescription !== "" &&
+        this.editedTitle !== "" &&
+        this.editedPrice !== ""
+      ) {
         this.$store.dispatch("updateAd", {
           title: this.editedTitle,
           description: this.editedDescription,

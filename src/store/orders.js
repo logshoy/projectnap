@@ -21,13 +21,13 @@ export default {
   },
   actions: {
     async createOrder({
-      commit
+      commit, getters
     }, {
-      name,
       phone,
       adId,
       ownerId
     }) {
+      const name = getters.info.nickname
       const order = new Order(name, phone, adId)
       commit('clearError')
 
@@ -38,8 +38,13 @@ export default {
         throw error
       }
     },
-    async createOrderAll({commit,
-    getters},{cart, phone}) {
+    async createOrderAll({
+      commit,
+      getters
+    }, {
+      cart,
+      phone
+    }) {
       try {
         const name = getters.info.nickname
         console.log(name)

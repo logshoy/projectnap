@@ -10,6 +10,10 @@ import localizeFilter from '@/filters/localize.filter.js'
 import titlePlugin from '@/utils/title.plugin'
 import * as fb from 'firebase'
 import 'vuetify/dist/vuetify.min.css'
+const stripe = require('stripe')('sk_test_x5C0nOxI8wltXeKDIe9YWCsU008hxOvjkR');
+stripe.charges.retrieve('ch_1GaNCUEL2cAqMdqWpzZp0Ont', {
+  api_key: 'sk_test_x5C0nOxI8wltXeKDIe9YWCsU008hxOvjkR'
+});
 
 Vue.component('app-buy-modal', BuyModalComponent)
 Vue.component('add-to-cart', AddToCart)

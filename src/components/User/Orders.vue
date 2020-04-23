@@ -38,8 +38,8 @@
 export default {
   metaInfo() {
     return {
-      title: this.$title('Orders')
-    }
+      title: this.$title("Orders")
+    };
   },
   computed: {
     loading() {
