@@ -8,10 +8,10 @@
         </v-col>
         <v-col cols="8" md="9">
           <v-card-text>
-            <h3>{{'Title' | localize}}:{{item.cartTitle}}</h3>
-            <p>{{'Descriprion' | localize}}:{{item.cartDescription}}</p>
-            <p>{{'Price' | localize}}:{{item.cartPrice}} ₽</p>
-            <p>{{'Amount' | localize}}:{{item.cartQuantity}}</p>
+            <h3>{{'Title' | localize}}: {{item.cartTitle}}</h3>
+            <p>{{'Descriprion' | localize}}: {{item.cartDescription}}</p>
+            <p>{{'Price' | localize}}: {{item.cartPrice}} ₽</p>
+            <p>{{'Amount' | localize}}: {{item.cartQuantity}}</p>
           </v-card-text>
         </v-col>
         <v-col cols="12" md="1">
@@ -56,14 +56,11 @@
           </v-container>
         </v-card>
       </v-dialog>
-
     </v-container>
   </div>
 </template>
 
 <script>
-
-
 export default {
   metaInfo() {
     return {
@@ -73,7 +70,7 @@ export default {
   data() {
     return {
       dialog: false,
-      phone: "",
+      phone: ""
     };
   },
   computed: {
@@ -90,13 +87,15 @@ export default {
       this.dialog = false;
     },
     buyAll() {
-      this.$store.dispatch("createOrderAll", {
-        cart: this.cart,
-        phone: this.phone
-      }).finally(() => {
-            this.phone = "";
-            this.modal = false;
-          });
+      this.$store
+        .dispatch("createOrderAll", {
+          cart: this.cart,
+          phone: this.phone,
+        })
+        .finally(() => {
+          this.phone = "";
+          this.dialog = false;
+        });
     }
   }
 };

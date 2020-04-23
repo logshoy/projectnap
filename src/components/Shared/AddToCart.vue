@@ -13,10 +13,10 @@
             <v-layout class="mt-3" v-for="item in cart" :key="item.cartId">
               <v-img width="120px" :src="item.cartImageSrc" />
               <v-card-text>
-                <h3>{{'Title' | localize}}:{{ item.cartTitle }}</h3>
-                <p>{{'Descriprion' | localize}}:{{ item.cartDescription }}</p>
-                <p>{{'Price' | localize}}:{{ item.cartPrice }}</p>
-                <p>{{'Amount' | localize}}{{ item.cartQuantity }}</p>
+                <h3>{{'Title' | localize}}: {{ item.cartTitle }}</h3>
+                <p>{{'Descriprion' | localize}}: {{ item.cartDescription }}</p>
+                <p>{{'Price' | localize}}: {{ item.cartPrice }}</p>
+                <p>{{'Amount' | localize}}: {{ item.cartQuantity }}</p>
               </v-card-text>
               <v-btn @click="$store.dispatch('removeFromCart', item)">{{'Delete' | localize}}</v-btn>
             </v-layout>

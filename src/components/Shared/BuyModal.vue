@@ -4,7 +4,6 @@
       <v-btn v-if="isUserLoggedIn" class="primary" v-on="on">{{'Buy' | localize}}</v-btn>
       <v-btn v-else class="primary" to="/login">{{'Buy' | localize}}</v-btn>
     </template>
-    <v-btn>chjgh</v-btn>
     <v-card>
       <v-container>
         <v-layout row>
@@ -75,6 +74,7 @@ export default {
           .dispatch("createOrder", {
             phone: this.phone,
             adId: this.ad.id,
+            adTitle: this.ad.title,
             ownerId: this.ad.ownerId
           })
           .finally(() => {

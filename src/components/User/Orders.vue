@@ -20,6 +20,8 @@
             <v-list-item-content>
               <v-list-item-title>{{order.name}}</v-list-item-title>
               <v-list-item-subtitle>{{order.phone}}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{order.adTitle}} </v-list-item-subtitle>
+              <v-list-item-subtitle> {{'Amount' | localize}}: {{order.amount}}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
               <v-btn :to="'/ad/' + order.adId" class="primary">{{'Open' | localize}}</v-btn>

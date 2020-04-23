@@ -1,10 +1,12 @@
 import * as fb from 'firebase'
 
 class Order {
-  constructor(name, phone, adId, done = false, id = null) {
+  constructor(name, phone, adId, adTitle, amount, done = false, id = null) {
     this.name = name
     this.phone = phone
     this.adId = adId
+    this.adTitle = adTitle
+    this.amount = amount
     this.done = done
     this.id = id
   }
@@ -21,14 +23,16 @@ export default {
   },
   actions: {
     async createOrder({
-      commit, getters
+      commit,
+      getters
     }, {
       phone,
       adId,
+      adTitle,
       ownerId
     }) {
       const name = getters.info.nickname
-      const order = new Order(name, phone, adId)
+      const order = new Order(name, phone, adId , adTitle, 1)
       commit('clearError')
 
       try {
@@ -50,7 +54,7 @@ export default {
         console.log(name)
         for (const item of cart) {
           console.log(item.cartOwner)
-          const orderPush = new Order(name, phone, item.cartId)
+          const orderPush = new Order(name, phone, item.cartId, item.cartTitle, item.cartQuantity)
           console.log(orderPush)
           await fb.database().ref(`/users/${item.cartOwner}/orders`).push(orderPush)
         }
@@ -77,7 +81,7 @@ export default {
         Object.keys(orders).forEach(key => {
           const o = orders[key]
           resultOrders.push(
-            new Order(o.name, o.phone, o.adId, o.done, key)
+            new Order(o.name, o.phone, o.adId, o.adTitle, o.amount, o.done , key)
           )
         })
 

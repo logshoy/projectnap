@@ -12,7 +12,7 @@
               <v-card-text>
                 <h2 class="text--primary">{{ ad.title }}</h2>
                 <p>{{ ad.description }}</p>
-                <p>{{ ad.price }}</p>
+                <p>{{ ad.price }} ₽</p>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
