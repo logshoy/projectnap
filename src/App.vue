@@ -240,12 +240,18 @@ export default {
   data() {
     return {
       drawer: false,
-      dialog: true,
+      dialog: false,
       modal: false
     };
   },
-  created() {
-      this.dialog = this.eighteen === true;
+  updated() {
+    if (this.eighteen == true) {
+      this.dialog = false;
+    } else  {
+      this.dialog = true
+    }
+    console.log(this.eighteen,"ss")
+     console.log( this.dialog,"ww")
   },
   computed: {
     loading() {
@@ -302,7 +308,7 @@ export default {
     },
     accept() {
       this.dialog = false;
-      this.$store.dispatch("eighteen", false);
+      this.$store.dispatch("eighteen", true);
     },
     destroy() {
       this.modal = true;

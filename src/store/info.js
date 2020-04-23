@@ -82,17 +82,12 @@ export default {
         async fetchCommentedItem({
             commit
         }, uid) {
-            try {
                 const commentedItem = (await fb
                     .database()
                     .ref(`/users/${uid}/commentedItem`)
                     .once('value')).val()
                 const arrayCommentItem = Object.keys(commentedItem)
                 commit('setCommentedItem', arrayCommentItem)
-            } catch (e) {
-                commit('setError', e)
-                throw e
-            }
         },
     },
     getters: {
